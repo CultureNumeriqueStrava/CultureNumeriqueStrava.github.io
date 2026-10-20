@@ -1,4 +1,4 @@
-set htmlCode to "<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang='fr'>
 <head>
 <meta charset='UTF-8'>
@@ -1534,9 +1534,12 @@ de performance.
         </div>
     </div>
     <a href='Culture numérique (réponses).xlsx' target='_blank' rel='noopener noreferrer' style='display:inline-block; padding:12px 18px; background:#ff6b35; color:white; text-decoration:none; border-radius:8px; font-size:13px; font-weight:bold;'>Voir les résultats ↗</a>
+
+</p>
+<a class='orange' href='Culture numérique (réponses).xlsx'>
+Voir les résultats-> 
+</a>
 </div>
-
-
 <!-- LIMITES DE L'ENQUÊTE -->
 
 <div style='margin:25px 0 35px 0; padding:20px; background:#f7f7f7; border-radius:12px;'>
@@ -3692,7 +3695,7 @@ quantitatives disponibles sur les usages sportifs numériques.
     </div>
 
 <div style='margin-top: 32px; text-align: center;'>
-    <a class='orange' href='rendu_écrit.docx' target='_blank'>
+    <a class='orange' href='rendu_.docx' target='_blank'>
         Consulter le rendu écrit complet →
     </a>
 </div>
@@ -3869,52 +3872,3 @@ Strava et la gamification du sport
 
 </body>
 </html>"
-
-set desktopFolder to path to desktop folder
-set projectFolder to (desktopFolder as text) & "Culture numérique:"
-set htmlFile to projectFolder & "Strava_Enquete.html"
-
-set martinFile to projectFolder & "Martin_Entretien.docx"
-set lilyFile to projectFolder & "Lily_Entretien.docx"
-set stephaneFile to projectFolder & "Stéphane_Entretien.docx"
-set anaisFile to projectFolder & "Anais_Entretien.docx"
-set julieFile to projectFolder & "Julie_Entretien.docx"
-set guideFile to projectFolder & "Guide_entretien_Strava.xlsx"
-set article1File to projectFolder & "Article_1.docx"
-set article2File to projectFolder & "Article_2.docx"
-set article3File to projectFolder & "Article_3.docx"
-set article4File to projectFolder & "Article_4.docx"
-set renduFile to projectFolder & "rendu_écrit.docx"
-
-
-
-set martinURL to "file://" & POSIX path of martinFile
-set lilyURL to "file://" & POSIX path of lilyFile
-set guideURL to "file://" & POSIX path of guideFile
-set renduURL to "file://" & POSIX path of renduFile
-
-try
-	
-	set fileReference to open for access file htmlFile with write permission
-	
-	set eof of fileReference to 0
-	
-	write htmlCode to fileReference as «class utf8»
-	
-	close access fileReference
-	
-	display dialog "Le site STRAVA a été créé sur ton Bureau." buttons {"Ouvrir le site", "OK"} default button "Ouvrir le site"
-	
-	if button returned of result is "Ouvrir le site" then
-		do shell script "open " & quoted form of POSIX path of htmlFile
-	end if
-	
-on error errorMessage
-	
-	try
-		close access file htmlFile
-	end try
-	
-	display dialog "Une erreur est survenue : " & errorMessage buttons {"OK"}
-	
-end try
