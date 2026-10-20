@@ -1,0 +1,3920 @@
+set htmlCode to "<!DOCTYPE html>
+<html lang='fr'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Strava — Le sport en données</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+    color: #20252a;
+}
+
+nav {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    gap: 25px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: #fc4c02;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+}
+
+nav a:hover {
+    color: #fc4c02;
+}
+
+.hero {
+    min-height: 500px;
+    padding: 80px 7%;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    background:
+    linear-gradient(90deg,
+    rgba(0,0,0,.82),
+    rgba(0,0,0,.30)),
+    url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1800&q=85')
+    center/cover;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 68px;
+    line-height: .95;
+    margin: 15px 0;
+}
+
+.hero h2 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+.orange {
+    color: #fc4c02;
+}
+
+.button {
+    display: inline-block;
+    background: #fc4c02;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.stat {
+    background: rgba(0,0,0,.45);
+    padding: 15px 20px;
+    border-radius: 12px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 25px;
+}
+
+.stat span {
+    font-size: 12px;
+}
+
+.section-menu {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.section-menu a {
+    padding: 22px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #222;
+    border-right: 1px solid #eee;
+    font-weight: bold;
+}
+
+.section-menu span {
+    display: block;
+    color: #fc4c02;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 25px;
+}
+
+.section {
+    margin-bottom: 90px;
+}
+
+.section-number {
+    color: #fc4c02;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.section h2 {
+    font-size: 42px;
+    margin-top: 0;
+}
+
+.section h3 {
+    font-size: 25px;
+    margin-top: 45px;
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+}
+
+.intro-text {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.intro-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.caption {
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+}
+
+.highlight {
+    background: #fff0e9;
+    padding: 35px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.gamification {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
+
+.gamification div {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.gamification span {
+    font-size: 32px;
+}
+
+.interests {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.interest {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.angles {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
+
+.angle {
+    background: #20252a;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.angle h4 {
+    color: #fc4c02;
+    font-size: 20px;
+}
+
+.issues {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.issue {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid #fc4c02;
+    line-height: 1.6;
+}
+
+.hypotheses {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.hypothesis {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.hypothesis-number {
+    color: #fc4c02;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.video {
+    background: #15181c;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.video iframe {
+    width: 100%;
+    height: 500px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.result {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.result strong {
+    display: block;
+    color: #fc4c02;
+    font-size: 40px;
+}
+
+.interviews {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.interview {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.interview-number {
+    color: #fc4c02;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.article {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border-top: 4px solid #fc4c02;
+}
+
+.article a {
+    color: #fc4c02;
+    font-weight: bold;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 12px;
+}
+
+.step {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.step strong {
+    display: block;
+    color: #fc4c02;
+    font-size: 30px;
+}
+
+.conclusion {
+    background: #20252a;
+    color: white;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.conclusion h2 {
+    font-size: 42px;
+}
+
+.conclusion-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.conclusion-card {
+    background: rgba(255,255,255,.08);
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.sources {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    line-height: 2;
+}
+
+footer {
+    background: #15181c;
+    color: white;
+    padding: 35px 6%;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media(max-width:900px) {
+
+    nav a {
+        display: none;
+    }
+
+    .intro-grid,
+    .interests,
+    .issues,
+    .hypotheses,
+    .interviews,
+    .article-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gamification,
+    .angles,
+    .results {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .steps {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .section-menu {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class='logo'>STRAVA</div>
+
+<a href='#sujet'>Le sujet</a>
+<a href='#hypotheses'>Hypothèses</a>
+<a href='#fonctionnement'>Fonctionnement</a>
+<a href='#questionnaire'>Questionnaire</a>
+<a href='#entretiens'>Entretiens</a>
+<a href='#recherche'>Recherche</a>
+<a href='#conclusion'>Conclusion</a>
+
+</nav>
+
+
+<section class='hero'>
+
+<div class='hero-content'>
+
+<div class='orange'>ENQUÊTE EXPLORATOIRE · SCIENCES PO PARIS</div>
+
+<h1>Strava et la gamification du sport</h1>
+
+
+<p>
+Quels effets les fonctionnalités de l’application ont-elles sur les pratiques sportives ?
+
+</p>
+
+<a class='button' href='#sujet'>Découvrir notre enquête ↓</a>
+
+<div class='stats'>
+
+<div class='stat'>
+<strong>🏃</strong>
+<span>Sport</span>
+</div>
+
+<div class='stat'>
+<strong>🏆</strong>
+<span>Compétition</span>
+</div>
+
+<div class='stat'>
+<strong>❤️</strong>
+<span>Social</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class='section-menu'>
+
+<a href='#sujet'>
+<span>01</span>
+Le sujet
+</a>
+
+<a href='#hypotheses'>
+<span>02</span>
+Hypothèses
+</a>
+
+<a href='#fonctionnement'>
+<span>03</span>
+Strava
+</a>
+
+<a href='#questionnaire'>
+<span>04</span>
+Questionnaire
+</a>
+
+<a href='#entretiens'>
+<span>05</span>
+Entretiens
+</a>
+
+</div>
+
+
+<main>
+
+
+<!-- ================================================= -->
+<!-- SUJET -->
+<!-- ================================================= -->
+
+<section class='section' id='sujet'>
+
+<div class='section-number'>01 — NOTRE SUJET</div>
+
+
+<div class='intro-grid'>
+
+<div class='intro-text'>
+
+<h3 style='margin-top:0'>
+De la pratique individuelle à quelque chose de social
+</h3>
+
+<p>
+À la base, Strava est conçue comme un outil de suivi personnel permettant
+d'enregistrer et de mesurer ses performances sportives.
+</p>
+
+<p>
+Mais l'application a introduit une importante dimension sociale et compétitive.
+Chaque séance peut devenir une occasion de se mesurer aux autres, de battre
+un record, de valider un objectif ou de partager une performance.
+</p>
+
+<p>
+Les segments permettent notamment de comparer les performances sur une portion
+donnée, tandis que les classements, badges, défis et kudos ajoutent des
+mécanismes inspirés du jeu.
+</p>
+
+<p>
+Cette transformation soulève des questions sur l'équilibre entre dépassement
+de soi et pression sociale, ainsi que sur les effets de la recherche permanente
+de performance.
+</p>
+
+</div>
+
+
+<div class='intro-image'>
+
+<img src='https://images.squarespace-cdn.com/content/62de9a4e72894d2dab2d74e6/1658757537521-T7ODIBVDEECA0FT50AWI/cadence-course-a-pied.png?content-type=image%2Fpng'>
+
+<p class='caption'>
+Le départ d'une course : un moment sportif qui peut ensuite devenir une
+performance mesurée, comparée et partagée.
+</p>
+
+</div>
+
+</div>
+
+
+<div class='highlight'>
+
+<h3 style='margin-top:0'>La gamification au cœur de l'application</h3>
+
+<div class='gamification'>
+
+<div>
+<span>🏆</span>
+<h4>Classements</h4>
+<p>Comparer ses performances à celles des autres.</p>
+</div>
+
+<div>
+<span>🎯</span>
+<h4>Défis</h4>
+<p>Atteindre des objectifs sportifs.</p>
+</div>
+
+<div>
+<span>🏅</span>
+<h4>Badges</h4>
+<p>Obtenir des récompenses virtuelles.</p>
+</div>
+
+<div>
+<span>❤️</span>
+<h4>Kudos</h4>
+<p>Recevoir une reconnaissance sociale.</p>
+</div>
+
+</div>
+
+</div>
+
+
+<h3>Pourquoi étudier Strava ?</h3>
+
+<div class='interests'>
+
+    <div class='interest'>
+        <h3>🏃 Le sport devient mesurable</h3>
+        <p>
+            Strava transforme une activité sportive en données : distance,
+            durée, vitesse, dénivelé ou encore records personnels. Cette
+            quantification permet de suivre sa progression, mais aussi de
+            comparer ses performances.
+        </p>
+    </div>
+
+    <div class='interest'>
+        <h3>📱 Une pratique qui devient visible</h3>
+        <p>
+            Les activités ne restent pas nécessairement individuelles.
+            Elles peuvent être publiées, commentées, récompensées par des
+            Kudos ou partagées sur d'autres réseaux sociaux. La pratique
+            sportive devient ainsi visible aux autres.
+        </p>
+    </div>
+
+    <div class='interest'>
+        <h3>🎮 Du suivi à la gamification</h3>
+        <p>
+            Segments, classements, badges, challenges et records introduisent
+            des mécanismes inspirés du jeu dans la pratique sportive.
+            L'utilisateur peut alors chercher à progresser, à se dépasser
+            ou à atteindre un nouvel objectif.
+        </p>
+    </div>
+
+    <div class='interest'>
+        <h3>👥 Une pratique qui nous concerne directement</h3>
+        <p>
+            Strava est utilisé par de nombreux sportifs de notre entourage.
+            Cette proximité nous permet de partir de pratiques concrètes et
+            d'interroger la manière dont l'application s'intègre réellement
+            dans les habitudes sportives.
+        </p>
+    </div>
+
+</div>
+
+
+<h3>Quatre regards pour comprendre le phénomène</h3>
+
+<div class='angles'>
+
+    <div class='angle'>
+        <h4>💻 Technologie</h4>
+        <p>
+            Comment les données, les fonctionnalités et les algorithmes
+            transforment-ils une activité sportive en expérience numérique ?
+        </p>
+    </div>
+
+    <div class='angle'>
+        <h4>👥 Sociologie</h4>
+        <p>
+            Comment la visibilité des performances, les groupes et les
+            interactions avec les autres utilisateurs influencent-ils
+            les pratiques sportives ?
+        </p>
+    </div>
+
+    <div class='angle'>
+        <h4>🧠 Psychologie</h4>
+        <p>
+            Que produisent les récompenses, les classements et la comparaison
+            sur la motivation, la satisfaction ou la frustration des sportifs ?
+        </p>
+    </div>
+
+    <div class='angle'>
+        <h4>💶 Économie</h4>
+        <p>
+            Comment une application comme Strava transforme-t-elle
+            l'engagement des utilisateurs en modèle économique, notamment
+            à travers l'abonnement et les partenariats ?
+        </p>
+    </div>
+
+</div>
+
+
+<h3>Les questions que soulève Strava</h3>
+
+<div class='issues'>
+
+    <div class='issue'>
+
+        <h3>❤️ Jusqu'où se dépasser ?</h3>
+
+        <p>
+            Le suivi permanent des performances peut encourager la régularité
+            et donner envie de progresser. Mais la recherche du meilleur temps,
+            d'un record ou d'un objectif peut aussi pousser certains sportifs
+            à augmenter leur effort ou leur volume d'entraînement.
+        </p>
+
+        <p>
+            La question est alors celle de l'équilibre entre motivation,
+            plaisir sportif et recherche de performance.
+        </p>
+
+    </div>
+
+
+    <div class='issue'>
+
+        <h3>👥 Quand le sport devient social</h3>
+
+        <p>
+            Kudos, abonnements, clubs et partage des activités créent une
+            véritable dimension sociale autour de la pratique sportive.
+            Cette communauté peut être source de motivation et de soutien.
+        </p>
+
+        <p>
+            Mais la visibilité des performances introduit également la
+            comparaison : que publie-t-on, que regarde-t-on chez les autres
+            et quelles performances considère-t-on comme « bonnes » ?
+        </p>
+
+    </div>
+
+
+    <div class='issue'>
+
+        <h3>🔐 Que deviennent nos données sportives ?</h3>
+
+        <p>
+            Chaque activité enregistrée produit de nombreuses informations :
+            parcours GPS, distance, vitesse, fréquence cardiaque ou historique
+            des performances.
+        </p>
+
+        <p>
+            Cette accumulation de données pose donc des questions sur leur
+            utilisation, leur visibilité et la protection de la vie privée.
+        </p>
+
+    </div>
+
+
+    <div class='issue'>
+
+        <h3>🌱 Un sport de plus en plus connecté</h3>
+
+        <p>
+            Strava s'inscrit dans un écosystème plus large composé de montres
+            connectées, smartphones, GPS et capteurs. La pratique sportive
+            repose ainsi de plus en plus sur des équipements numériques.
+        </p>
+
+        <p>
+            Cette dimension connectée invite également à interroger les
+            équipements nécessaires et leur impact environnemental.
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+<!-- ================================================= -->
+<!-- HYPOTHESES -->
+<!-- ================================================= -->
+
+<section class='section' id='hypotheses'>
+
+<div class='section-number'>02 — NOS HYPOTHÈSES</div>
+
+<h2>Ce que nous cherchons à vérifier</h2>
+
+<p>
+Nos premières observations et nos lectures nous ont conduits à formuler
+quatre hypothèses. Elles constituent des pistes de départ que les entretiens
+et le questionnaire nous permettront de confirmer, de nuancer ou de remettre
+en question.
+</p>
+
+<div class='hypotheses'>
+
+<div class='hypothesis'>
+
+<div class='hypothesis-number' style='font-size:11px; letter-spacing:0.8px;'>
+HYPOTHÈSE 1
+</div>
+
+<h3>Se comparer pour progresser</h3>
+
+<p>
+La visibilité des performances et les mécanismes de comparaison pourraient
+inciter certains utilisateurs à chercher davantage à améliorer leurs
+résultats.
+</p>
+
+</div>
+
+
+<div class='hypothesis'>
+
+<div class='hypothesis-number' style='font-size:11px; letter-spacing:0.8px;'>
+HYPOTHÈSE 2
+</div>
+
+<h3>Rendre sa pratique visible</h3>
+
+<p>
+Le partage des activités et les interactions avec les autres pourraient
+faire évoluer une pratique initialement individuelle vers une pratique
+davantage tournée vers les autres.
+</p>
+
+</div>
+
+
+<div class='hypothesis'>
+
+<div class='hypothesis-number' style='font-size:11px; letter-spacing:0.8px;'>
+HYPOTHÈSE 3
+</div>
+
+<h3>Jouer pour rester motivé</h3>
+
+<p>
+Les challenges, badges, records et autres mécanismes de gamification
+pourraient renforcer la motivation et encourager certains utilisateurs
+à pratiquer plus régulièrement.
+</p>
+
+</div>
+
+
+<div class='hypothesis'>
+
+<div class='hypothesis-number' style='font-size:11px; letter-spacing:0.8px;'>
+HYPOTHÈSE 4
+</div>
+
+<h3>Quand la motivation devient pression</h3>
+
+<p>
+Les mêmes mécanismes pourraient aussi avoir des effets moins positifs :
+comparaison, frustration ou pression pour maintenir un certain niveau
+de performance.
+</p>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================================================= -->
+<!-- FONCTIONNEMENT -->
+<!-- ================================================= -->
+<section class='section' id='fonctionnement'>
+
+
+    <div class='research-card'>
+
+        <h2>🎬 Comment fonctionne Strava ?</h2>
+
+        <p>
+            Cette vidéo présente les principales fonctionnalités de Strava
+            et permet de comprendre comment l'application fonctionne :
+            enregistrement des activités, suivi des performances,
+            segments, défis et dimension sociale.
+        </p>
+
+        <div style='width:100%; max-width:800px; margin:25px auto;'>
+            <iframe
+                width='100%'
+                height='400'
+                src='https://www.youtube.com/embed/tT2gI7Ct_Kc'
+                title='Comment fonctionne Strava ?'
+                frameborder='0'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                allowfullscreen>
+            </iframe>
+        </div>
+
+<!-- COMMENT FONCTIONNE STRAVA ? -->
+
+<div style='margin-top:50px;'>
+
+    <p>
+        <strong>Créée en 2009, Strava est une application de suivi sportif.</strong>
+        Grâce au GPS d’un téléphone ou d’une montre connectée, elle enregistre des données
+        comme la distance, la durée, la vitesse, le dénivelé ou la fréquence cardiaque.
+    </p>
+
+    <p>
+        Strava s’inscrit dans la logique du <strong>quantified self</strong>, ou
+        <strong>quantification de soi</strong> : transformer son activité et ses performances
+        en données mesurables et comparables.
+    </p>
+
+    <p>
+        L’application possède aussi une <strong>dimension sociale</strong> : les utilisateurs
+        peuvent publier leurs activités, suivre d’autres sportifs, rejoindre des clubs,
+        commenter et attribuer des <strong>Kudos</strong>, similaires à des likes.
+    </p>
+
+    <p>
+        Enfin, Strava intègre des mécanismes de <strong>gamification</strong>, c’est-à-dire
+        des éléments inspirés du jeu, comme les <strong>défis, badges, records personnels,
+        segments et classements</strong>, qui encouragent les utilisateurs à progresser.
+    </p>
+
+    <h3>Les segments : transformer un parcours en compétition</h3>
+
+    <p>
+        Un <strong>segment</strong> est une portion précise d’un parcours, comme une montée
+        ou une rue. Strava permet de comparer le temps réalisé avec ses propres résultats
+        et ceux des autres utilisateurs.
+    </p>
+
+    <p>
+        Les meilleurs temps peuvent donner accès aux titres <strong>KOM</strong>
+        (<em>King of the Mountain</em>) ou <strong>QOM</strong>
+        (<em>Queen of the Mountain</em>). Un parcours ordinaire devient ainsi un
+        <strong>espace de comparaison et de compétition</strong>, où la vitesse et la progression
+        prennent une place importante.
+    </p>
+
+    <h3>Des objectifs pour encourager la pratique</h3>
+
+    <p>
+        Les <strong>challenges</strong> proposent des objectifs de distance, de dénivelé
+        ou de fréquence, parfois accompagnés de récompenses virtuelles. Les
+        <strong>clubs</strong> réunissent quant à eux des sportifs autour d’une communauté
+        et favorisent les échanges.
+    </p>
+
+    <h3>Des activités individuelles aux données collectives</h3>
+
+    <p>
+        Strava transforme aussi les activités enregistrées en données collectives.
+        Les <strong>Heatmaps</strong> visualisent les zones les plus fréquentées par les sportifs.
+        Avec <strong>Strava Metro</strong>, les données agrégées et désidentifiées peuvent aider
+        à étudier les déplacements à pied et à vélo et à réfléchir aux aménagements urbains.
+    </p>
+
+    <p style='text-align:center; font-weight:bold; margin:25px 0;'>
+        Donnée individuelle → données agrégées → information collective
+    </p>
+
+</div>
+
+
+    <h3>Strava : une application qui évolue</h3>
+
+    <div style='max-width:850px; margin:45px auto; position:relative; padding-left:55px;'>
+
+        <!-- Ligne verticale -->
+        <div style='position:absolute; left:15px; top:5px; bottom:5px; width:3px; background:#ff6b35;'></div>
+
+        <!-- 2009 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2009</div>
+            <div style='font-size:20px; font-weight:600;'>Lancement de Strava</div>
+        </div>
+
+        <!-- 2009-2010 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2009–2010</div>
+            <div style='font-size:20px; font-weight:600;'>Segments et classements</div>
+
+            <p style='margin:10px 0 0 18px; padding-left:15px; border-left:2px solid #eee; color:#555; font-size:16px; line-height:1.55; max-width:700px;'>
+                Les performances peuvent être comparées sur des portions de parcours, avec des distinctions comme les KOM, QOM et trophées. La sortie devient un terrain de compétition.
+            </p>
+        </div>
+
+        <!-- 2011 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2011</div>
+            <div style='font-size:20px; font-weight:600;'>Challenges et badges</div>
+
+            <p style='margin:10px 0 0 18px; padding-left:15px; border-left:2px solid #eee; color:#555; font-size:16px; line-height:1.55; max-width:700px;'>
+                Des objectifs de distance, de durée ou de dénivelé sont accompagnés de récompenses virtuelles : une logique de jeu apparaît.
+            </p>
+        </div>
+
+        <!-- 2015 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2015</div>
+            <div style='font-size:20px; font-weight:600;'>Live Segments</div>
+        </div>
+
+        <!-- 2020 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2020</div>
+            <div style='font-size:20px; font-weight:600;'>Local Legends</div>
+
+            <p style='margin:10px 0 0 18px; padding-left:15px; border-left:2px solid #eee; color:#555; font-size:16px; line-height:1.55; max-width:700px;'>
+                La récompense ne dépend plus uniquement de la vitesse : la régularité devient elle aussi une manière de « gagner ».
+            </p>
+        </div>
+
+        <!-- 2021 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2021</div>
+            <div style='font-size:20px; font-weight:600;'>Group Challenges</div>
+
+            <p style='margin:10px 0 0 18px; padding-left:15px; border-left:2px solid #eee; color:#555; font-size:16px; line-height:1.55; max-width:700px;'>
+                Les utilisateurs peuvent créer des défis avec leurs amis et suivre leurs progrès : la dimension collective du jeu se développe.
+            </p>
+        </div>
+
+        <!-- 2023-2024 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2023–2024</div>
+            <div style='font-size:20px; font-weight:600;'>Best Efforts</div>
+
+            <p style='margin:10px 0 0 18px; padding-left:15px; border-left:2px solid #eee; color:#555; font-size:16px; line-height:1.55; max-width:700px;'>
+                Les records personnels et leur évolution sont davantage mis en avant : la compétition peut aussi se faire contre soi-même.
+            </p>
+        </div>
+
+        <!-- 2023 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2023</div>
+            <div style='font-size:20px; font-weight:600;'>Challenges sponsorisés</div>
+        </div>
+
+        <!-- 2024 -->
+        <div style='position:relative; margin-bottom:35px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2024</div>
+            <div style='font-size:20px; font-weight:600;'>Athlete Intelligence et IA</div>
+        </div>
+
+        <!-- 2026 -->
+        <div style='position:relative; margin-bottom:10px;'>
+            <div style='position:absolute; left:-55px; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+            <div style='color:#ff6b35; font-size:20px; font-weight:bold; margin-bottom:5px;'>2026</div>
+            <div style='font-size:20px; font-weight:600;'>Nouvelles fonctionnalités autour de la progression et des défis</div>
+        </div>
+
+    </div>
+
+    <!-- Conclusion -->
+    <div style='max-width:850px; margin:40px auto 0; padding:22px 25px; background:#fff3ed; border-left:4px solid #ff6b35; border-radius:8px; line-height:1.6; font-size:17px;'>
+        <strong style='color:#ff6b35;'>En résumé :</strong>
+        Strava est progressivement passé du simple suivi sportif à un système où l'activité peut être mesurée, comparée, récompensée et partagée.
+    </div>
+
+</section>
+    </p>
+<!-- ================================================= -->
+<!-- QUESTIONNAIRE -->
+<!-- ================================================= -->
+
+<section class='section' id='questionnaire'>
+
+<div class='section-number'>04 — QUESTIONNAIRE</div>
+
+<h2>Ce que nous disent les utilisateurs</h2>
+
+
+<div style='margin-top:45px; padding:28px; background:#fff7f2; border-left:5px solid #ff6b35; border-radius:12px;'>
+    <div style='font-size:12px; font-weight:bold; letter-spacing:2px; color:#ff6b35; margin-bottom:12px;'>RÉSULTATS DE L'ENQUÊTE</div>
+    <h2 style='font-size:28px; line-height:1.2; color:#222; margin:0 0 14px 0;'>Que nous apprennent les 52 réponses ?</h2>
+    <p style='font-size:15px; line-height:1.8; color:#444; margin:0;'>
+        Le questionnaire a été rempli par <strong>52 étudiants de la promotion 2030 de Sciences Po Paris</strong>.
+        Il vise à comprendre comment Strava s'intègre dans leurs pratiques sportives, dans quelle mesure ses fonctionnalités les motivent et si elles peuvent aussi créer une forme de pression.
+    </p>
+    <p style='font-size:13px; line-height:1.7; color:#777; margin:12px 0 0 0;'>
+        Les pourcentages sont arrondis. Les résultats décrivent uniquement les répondants à notre questionnaire et ne sont pas représentatifs de l'ensemble des étudiants de Sciences Po.
+    </p>
+</div>
+
+<!-- CHIFFRES CLÉS -->
+
+<div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:14px; margin:25px 0 40px 0;'>
+
+    <div style='background:#fff; border:1px solid #eee; border-radius:12px; padding:22px 16px; text-align:center;'>
+        <div style='font-size:35px; font-weight:bold; color:#ff6b35;'>98 %</div>
+        <div style='font-size:13px; line-height:1.5; color:#555; margin-top:8px;'>pratiquent la course à pied ou le trail</div>
+        <div style='font-size:11px; color:#999; margin-top:6px;'>51 répondants sur 52</div>
+    </div>
+
+    <div style='background:#fff; border:1px solid #eee; border-radius:12px; padding:22px 16px; text-align:center;'>
+        <div style='font-size:35px; font-weight:bold; color:#ff6b35;'>83 %</div>
+        <div style='font-size:13px; line-height:1.5; color:#555; margin-top:8px;'>utilisent les statistiques personnelles comme fonctionnalité importante</div>
+        <div style='font-size:11px; color:#999; margin-top:6px;'>43 réponses</div>
+    </div>
+
+    <div style='background:#fff; border:1px solid #eee; border-radius:12px; padding:22px 16px; text-align:center;'>
+        <div style='font-size:35px; font-weight:bold; color:#ff6b35;'>63 %</div>
+        <div style='font-size:13px; line-height:1.5; color:#555; margin-top:8px;'>courent tous les jours ou plusieurs fois par semaine</div>
+        <div style='font-size:11px; color:#999; margin-top:6px;'>33 répondants</div>
+    </div>
+
+    <div style='background:#fff; border:1px solid #eee; border-radius:12px; padding:22px 16px; text-align:center;'>
+        <div style='font-size:35px; font-weight:bold; color:#ff6b35;'>27 %</div>
+        <div style='font-size:13px; line-height:1.5; color:#555; margin-top:8px;'>déclarent au moins un effet négatif lié à leur pratique</div>
+        <div style='font-size:11px; color:#999; margin-top:6px;'>14 répondants</div>
+    </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- 01 — PROFIL SPORTIF -->
+<!-- ================================================= -->
+
+<div style='position:relative; margin:35px 0 30px 0; padding-left:52px;'>
+    <div style='position:absolute; left:0; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+    <div style='font-size:12px; letter-spacing:2px; font-weight:bold; color:#ff6b35; margin-bottom:8px;'>01 — LES PRATIQUES SPORTIVES</div>
+    <h2 style='font-size:25px; line-height:1.3; color:#222; margin:0 0 15px 0;'>Une population déjà très sportive</h2>
+
+    <p style='font-size:15px; line-height:1.8; color:#444;'>
+        Sur les 52 étudiants interrogés, <strong>51 pratiquent la course à pied ou le trail</strong>. Notre échantillon est donc particulièrement orienté vers ces disciplines. Ce point est important pour interpréter les résultats : les usages observés ne peuvent pas être transposés à l'ensemble des étudiants, notamment à ceux qui pratiquent d'autres sports.
+    </p>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:18px;'>Fréquence de pratique sportive</div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:7px;'>
+                <span style='color:#444;'>Tous les jours ou presque</span>
+                <strong style='color:#222;'>18 · 35 %</strong>
+            </div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'>
+                <div style='width:35%; height:100%; background:#ff6b35; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:7px;'>
+                <span style='color:#444;'>Plusieurs fois par semaine</span>
+                <strong style='color:#222;'>15 · 29 %</strong>
+            </div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'>
+                <div style='width:29%; height:100%; background:#ff8b60; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:7px;'>
+                <span style='color:#444;'>Moins fréquemment</span>
+                <strong style='color:#222;'>19 · 37 %</strong>
+            </div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'>
+                <div style='width:37%; height:100%; background:#b8b8b8; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <div style='font-size:12px; color:#888; line-height:1.6;'>Pourcentages arrondis ; les effectifs correspondent à 52 répondants.</div>
+    </div>
+
+    <div style='border-left:3px solid #ff6b35; padding:12px 17px; margin-top:18px;'>
+        <div style='font-size:13px; font-weight:bold; color:#ff6b35; margin-bottom:5px;'>CE QUE L'ON PEUT EN DÉDUIRE</div>
+        <p style='font-size:14px; line-height:1.7; color:#444; margin:0;'>
+            Près de deux tiers des répondants pratiquent la course à pied ou le trail très régulièrement. Strava est donc étudié ici auprès d'un public qui possède déjà une pratique sportive installée. Il est difficile de savoir si l'application encourage la pratique ou si les personnes les plus sportives sont simplement davantage susceptibles de l'utiliser.
+        </p>
+    </div>
+</div>
+
+<!-- ================================================= -->
+<!-- 02 — FONCTIONNALITÉS -->
+<!-- ================================================= -->
+
+<div style='position:relative; margin:45px 0 30px 0; padding-left:52px;'>
+    <div style='position:absolute; left:0; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+    <div style='font-size:12px; letter-spacing:2px; font-weight:bold; color:#ff6b35; margin-bottom:8px;'>02 — LES FONCTIONNALITÉS</div>
+    <h2 style='font-size:25px; line-height:1.3; color:#222; margin:0 0 15px 0;'>D'abord mesurer ses performances, ensuite se comparer</h2>
+
+    <p style='font-size:15px; line-height:1.8; color:#444;'>
+        Les fonctionnalités ne sont pas utilisées de manière équivalente. Les statistiques individuelles arrivent largement en tête, devant les activités des amis et les records personnels. Les fonctionnalités les plus directement compétitives restent moins citées.
+    </p>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:20px;'>Fonctionnalités citées par les répondants</div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Statistiques personnelles</span><strong>43 · 83 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:83%; height:100%; background:#ff6b35;'></div></div>
+        </div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Activités des amis</span><strong>28 · 54 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:54%; height:100%; background:#ff8b60;'></div></div>
+        </div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Records personnels</span><strong>25 · 48 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:48%; height:100%; background:#ff8b60;'></div></div>
+        </div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Segments et classements</span><strong>13 · 25 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:25%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Kudos</span><strong>6 · 12 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:12%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+
+        <div style='margin-bottom:15px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Challenges et badges</span><strong>3 · 6 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:6%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+
+        <div>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Clubs</span><strong>1 · 2 %</strong>
+            </div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:2%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+
+        <p style='font-size:12px; line-height:1.6; color:#888; margin:18px 0 0 0;'>
+            Plusieurs réponses étaient possibles : les pourcentages ne s'additionnent donc pas à 100 %.
+        </p>
+    </div>
+
+    <div style='border-left:3px solid #ff6b35; padding:12px 17px; margin-top:18px;'>
+        <div style='font-size:13px; font-weight:bold; color:#ff6b35; margin-bottom:5px;'>ANALYSE</div>
+        <p style='font-size:14px; line-height:1.7; color:#444; margin:0;'>
+            Les statistiques personnelles sont citées par 43 répondants, contre 13 pour les segments et classements. Cette différence suggère que, dans notre échantillon, Strava sert davantage à suivre sa propre progression qu'à se situer dans une compétition avec les autres. La dimension sociale existe, puisque plus de la moitié des répondants citent les activités de leurs amis, mais elle ne semble pas être l'unique moteur de l'utilisation.
+        </p>
+    </div>
+</div>
+
+<!-- ================================================= -->
+<!-- 03 — MOTIVATION -->
+<!-- ================================================= -->
+
+<div style='position:relative; margin:45px 0 30px 0; padding-left:52px;'>
+    <div style='position:absolute; left:0; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+    <div style='font-size:12px; letter-spacing:2px; font-weight:bold; color:#ff6b35; margin-bottom:8px;'>03 — MOTIVATION ET COMPARAISON</div>
+    <h2 style='font-size:25px; line-height:1.3; color:#222; margin:0 0 15px 0;'>Une motivation réelle, mais pas systématique</h2>
+
+    <p style='font-size:15px; line-height:1.8; color:#444;'>
+        Sur une échelle de 1 à 5, la motivation associée à Strava atteint une moyenne de <strong>2,8/5</strong>. Les réponses sont partagées : 15 étudiants donnent une note de 4 ou 5, tandis que 20 donnent une note de 1 ou 2.
+    </p>
+
+    <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin:20px 0;'>
+        <div style='background:#fff7f2; border-radius:12px; padding:20px;'>
+            <div style='font-size:12px; font-weight:bold; color:#b84b25; letter-spacing:1px;'>MOTIVATION ÉLEVÉE</div>
+            <div style='font-size:31px; font-weight:bold; color:#222; margin:8px 0;'>15 / 52</div>
+            <div style='font-size:13px; color:#555;'>29 % donnent une note de 4 ou 5 sur 5.</div>
+        </div>
+        <div style='background:#f5f5f5; border-radius:12px; padding:20px;'>
+            <div style='font-size:12px; font-weight:bold; color:#666; letter-spacing:1px;'>FAIBLE MOTIVATION</div>
+            <div style='font-size:31px; font-weight:bold; color:#222; margin:8px 0;'>20 / 52</div>
+            <div style='font-size:13px; color:#555;'>38 % donnent une note de 1 ou 2 sur 5.</div>
+        </div>
+    </div>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:15px;'>Effet de la performance des autres</div>
+        <p style='font-size:13px; line-height:1.6; color:#777; margin:0 0 18px 0;'>Réponses à choix multiples sur ce que suscite la consultation des performances d'autres sportifs.</p>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Motivation supplémentaire</span><strong>25 réponses</strong></div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:48%; height:100%; background:#ff6b35;'></div></div>
+        </div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Envie de se dépasser</span><strong>25 réponses</strong></div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:48%; height:100%; background:#ff8b60;'></div></div>
+        </div>
+
+        <div>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Aucun effet particulier</span><strong>12 réponses</strong></div>
+            <div style='height:10px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:23%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+    </div>
+
+    <div style='border-left:3px solid #ff6b35; padding:12px 17px; margin-top:18px;'>
+        <div style='font-size:13px; font-weight:bold; color:#ff6b35; margin-bottom:5px;'>ANALYSE</div>
+        <p style='font-size:14px; line-height:1.7; color:#444; margin:0;'>
+            Les performances des autres peuvent donner envie de progresser : 25 répondants évoquent une motivation supplémentaire et 25 une envie de se dépasser. Mais ces effets ne sont pas universels. La moyenne de 2,8/5 et les 20 réponses faibles montrent que Strava ne motive pas nécessairement tous les utilisateurs. Il faut aussi distinguer l'envie de progresser de la volonté de dépasser les autres : les réponses disponibles ne permettent pas de les confondre.
+        </p>
+    </div>
+</div>
+
+<!-- ================================================= -->
+<!-- 04 — PRESSION SOCIALE -->
+<!-- ================================================= -->
+
+<div style='position:relative; margin:45px 0 30px 0; padding-left:52px;'>
+    <div style='position:absolute; left:0; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+    <div style='font-size:12px; letter-spacing:2px; font-weight:bold; color:#ff6b35; margin-bottom:8px;'>04 — LA PRESSION ET LA COMPARAISON SOCIALE</div>
+    <h2 style='font-size:25px; line-height:1.3; color:#222; margin:0 0 15px 0;'>La comparaison existe, sans concerner tout le monde de la même façon</h2>
+
+    <p style='font-size:15px; line-height:1.8; color:#444;'>
+        Consulter les performances d'autres sportifs peut aussi conduire à se comparer à eux. Les réponses indiquent cependant des niveaux de comparaison variables selon les individus.
+    </p>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:18px;'>À quelle fréquence les répondants se comparent-ils aux autres ?</div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Souvent ou très souvent</span><strong>13 · 25 %</strong></div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'><div style='width:25%; height:100%; background:#ff6b35;'></div></div>
+        </div>
+
+        <div style='margin-bottom:17px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Parfois</span><strong>17 · 33 %</strong></div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'><div style='width:33%; height:100%; background:#ff8b60;'></div></div>
+        </div>
+
+        <div>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'><span>Rarement ou jamais</span><strong>22 · 42 %</strong></div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'><div style='width:42%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+    </div>
+
+    <div style='background:#fff7f2; border-radius:12px; padding:20px; margin-top:20px;'>
+        <div style='font-size:13px; font-weight:bold; color:#b84b25; margin-bottom:8px;'>LA PRESSION LIÉE À SES PROPRES PERFORMANCES</div>
+        <div style='display:flex; align-items:center; gap:18px; flex-wrap:wrap;'>
+            <div style='font-size:38px; font-weight:bold; color:#222;'>2,0/5</div>
+            <div style='flex:1; min-width:180px; font-size:14px; line-height:1.7; color:#555;'>
+                C'est la moyenne de la pression ou de la déception ressentie face à ses propres performances.
+            </div>
+        </div>
+        <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-top:20px;'>
+            <div style='background:white; border-radius:9px; padding:14px;'>
+                <div style='font-size:23px; font-weight:bold; color:#333;'>36 / 52</div>
+                <div style='font-size:12px; color:#666; line-height:1.5;'>69 % donnent une note de 1 ou 2 sur 5</div>
+            </div>
+            <div style='background:white; border-radius:9px; padding:14px;'>
+                <div style='font-size:23px; font-weight:bold; color:#333;'>3 / 52</div>
+                <div style='font-size:12px; color:#666; line-height:1.5;'>6 % donnent une note de 4 ou 5 sur 5</div>
+            </div>
+        </div>
+    </div>
+
+    <div style='border-left:3px solid #ff6b35; padding:12px 17px; margin-top:18px;'>
+        <div style='font-size:13px; font-weight:bold; color:#ff6b35; margin-bottom:5px;'>ANALYSE</div>
+        <p style='font-size:14px; line-height:1.7; color:#444; margin:0;'>
+            La comparaison est présente chez une partie des répondants, mais la pression déclarée reste globalement faible. En effet, 36 étudiants sur 52 donnent une note de 1 ou 2 à la pression ressentie. Cela invite à distinguer le fait de regarder les performances des autres et le fait d'en éprouver un sentiment négatif. Se comparer ne signifie donc pas nécessairement ressentir de la pression.
+        </p>
+    </div>
+</div>
+
+<!-- ================================================= -->
+<!-- 05 — EFFETS NÉGATIFS ET COMPORTEMENTS -->
+<!-- ================================================= -->
+
+<div style='position:relative; margin:45px 0 30px 0; padding-left:52px;'>
+    <div style='position:absolute; left:0; top:0; width:34px; height:34px; background:#ff6b35; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:17px;'>→</div>
+
+    <div style='font-size:12px; letter-spacing:2px; font-weight:bold; color:#ff6b35; margin-bottom:8px;'>05 — QUAND L'APPLICATION INFLUENCE LA PRATIQUE</div>
+    <h2 style='font-size:25px; line-height:1.3; color:#222; margin:0 0 15px 0;'>Une pression limitée, mais des effets négatifs bien réels pour une minorité</h2>
+
+    <p style='font-size:15px; line-height:1.8; color:#444;'>
+        Au-delà des notes de motivation et de pression, 14 répondants sur 52 déclarent au moins un effet négatif associé à leur pratique : pression, frustration ou impression de ne pas en faire assez.
+    </p>
+
+    <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin:20px 0;'>
+        <div style='background:#fff7f2; border-radius:12px; padding:22px;'>
+            <div style='font-size:34px; font-weight:bold; color:#ff6b35;'>27 %</div>
+            <div style='font-size:14px; font-weight:bold; color:#333; margin:7px 0;'>Au moins un effet négatif</div>
+            <div style='font-size:12px; line-height:1.6; color:#666;'>14 répondants sur 52 signalent une expérience négative.</div>
+        </div>
+        <div style='background:#f7f7f7; border-radius:12px; padding:22px;'>
+            <div style='font-size:34px; font-weight:bold; color:#444;'>19 %</div>
+            <div style='font-size:14px; font-weight:bold; color:#333; margin:7px 0;'>Séance parfois modifiée</div>
+            <div style='font-size:12px; line-height:1.6; color:#666;'>10 répondants sur 52 changent parfois une séance parce qu'elle sera enregistrée.</div>
+        </div>
+    </div>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:12px;'>La comparaison est-elle associée aux effets négatifs ?</div>
+        <p style='font-size:14px; line-height:1.7; color:#555; margin:0 0 18px 0;'>
+            Parmi les 14 répondants qui déclarent un effet négatif, 5 se comparent souvent ou très souvent aux autres. Chez les 38 autres répondants, ils sont 8 à déclarer cette fréquence de comparaison.
+        </p>
+
+        <div style='margin-bottom:18px;'>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Effet négatif déclaré</span><strong>5 / 14 · 36 %</strong>
+            </div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'><div style='width:36%; height:100%; background:#ff6b35;'></div></div>
+        </div>
+
+        <div>
+            <div style='display:flex; justify-content:space-between; gap:10px; font-size:13px; margin-bottom:6px;'>
+                <span>Aucun effet négatif déclaré</span><strong>8 / 38 · 21 %</strong>
+            </div>
+            <div style='height:12px; background:#eee; border-radius:10px; overflow:hidden;'><div style='width:21%; height:100%; background:#b7b7b7;'></div></div>
+        </div>
+
+
+    </div>
+
+    <div style='background:#fafafa; border:1px solid #eee; border-radius:12px; padding:22px; margin-top:20px;'>
+        <div style='font-size:16px; font-weight:bold; color:#222; margin-bottom:12px;'>Enregistrer sa séance change-t-il quelque chose ?</div>
+        <p style='font-size:14px; line-height:1.7; color:#555; margin:0 0 18px 0;'>
+            Les 10 étudiants qui déclarent modifier parfois une séance parce qu'elle sera enregistrée présentent des moyennes plus élevées en matière de motivation et de pression que les autres répondants.
+        </p>
+
+        <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px;'>
+            <div style='background:#fff7f2; border-radius:9px; padding:15px;'>
+                <div style='font-size:12px; color:#777;'>Motivation · séance modifiée</div>
+                <div style='font-size:26px; font-weight:bold; color:#ff6b35; margin-top:5px;'>3,5 / 5</div>
+                <div style='font-size:12px; color:#777; margin-top:4px;'>Contre 2,7 chez les autres</div>
+            </div>
+            <div style='background:#fff7f2; border-radius:9px; padding:15px;'>
+                <div style='font-size:12px; color:#777;'>Pression · séance modifiée</div>
+                <div style='font-size:26px; font-weight:bold; color:#ff6b35; margin-top:5px;'>2,6 / 5</div>
+                <div style='font-size:12px; color:#777; margin-top:4px;'>Contre 1,9 chez les autres</div>
+            </div>
+        </div>
+    </div>
+
+ 
+</div>
+
+<!-- ================================================= -->
+<!-- 06 — SYNTHÈSE -->
+<!-- ================================================= -->
+
+<div style='margin:50px 0 25px 0; padding:30px; background:#222; border-radius:14px; color:white;'>
+    <div style='font-size:12px; font-weight:bold; letter-spacing:2px; color:#ff9a70; margin-bottom:12px;'>06 — SYNTHÈSE DES RÉSULTATS</div>
+    <h2 style='font-size:27px; line-height:1.3; margin:0 0 20px 0; color:white;'>Strava motive-t-elle ou met-elle sous pression ?</h2>
+
+    <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px;'>
+        <div style='border-top:2px solid #ff6b35; padding-top:15px;'>
+            <div style='font-size:15px; font-weight:bold; color:white; margin-bottom:8px;'>01. Mesurer</div>
+            <p style='font-size:13px; line-height:1.7; color:#ddd; margin:0;'>
+                Les statistiques personnelles sont la fonctionnalité la plus citée. Strava apparaît d'abord comme un outil de suivi et de quantification de l'effort.
+            </p>
+        </div>
+
+        <div style='border-top:2px solid #ff6b35; padding-top:15px;'>
+            <div style='font-size:15px; font-weight:bold; color:white; margin-bottom:8px;'>02. Se motiver</div>
+            <p style='font-size:13px; line-height:1.7; color:#ddd; margin:0;'>
+                Les performances des autres peuvent stimuler l'envie de progresser, mais la motivation moyenne reste modérée et varie selon les individus.
+            </p>
+        </div>
+
+        <div style='border-top:2px solid #ff6b35; padding-top:15px;'>
+            <div style='font-size:15px; font-weight:bold; color:white; margin-bottom:8px;'>03. Se comparer</div>
+            <p style='font-size:13px; line-height:1.7; color:#ddd; margin:0;'>
+                La comparaison est fréquente chez une partie des répondants, mais la majorité déclare rarement ou jamais se comparer, ou seulement parfois.
+            </p>
+        </div>
+
+        <div style='border-top:2px solid #ff6b35; padding-top:15px;'>
+            <div style='font-size:15px; font-weight:bold; color:white; margin-bottom:8px;'>04. Ressentir une pression</div>
+            <p style='font-size:13px; line-height:1.7; color:#ddd; margin:0;'>
+                La pression moyenne est faible, mais plus d'un quart des répondants déclarent au moins un effet négatif.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div style='display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin:22px 0 30px 0; padding:20px 24px; background:#fff; border:1px solid #ffd9c9; border-radius:12px;'>
+    <div style='display:flex; align-items:center; gap:14px; flex:1; min-width:200px;'>
+        <div style='width:46px; height:46px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:#fff0e8; border-radius:10px; font-size:24px;'>📊</div>
+        <div>
+            <div style='font-size:15px; font-weight:bold; color:#222; margin-bottom:5px;'>Consulter les résultats bruts</div>
+            <div style='font-size:13px; line-height:1.6; color:#777;'>Tableau Excel des réponses à notre Google Forms · 52 répondants</div>
+        </div>
+    </div>
+    <a href='Culture numérique (réponses).xlsx' target='_blank' rel='noopener noreferrer' style='display:inline-block; padding:12px 18px; background:#ff6b35; color:white; text-decoration:none; border-radius:8px; font-size:13px; font-weight:bold;'>Voir les résultats ↗</a>
+</div>
+
+
+<!-- LIMITES DE L'ENQUÊTE -->
+
+<div style='margin:25px 0 35px 0; padding:20px; background:#f7f7f7; border-radius:12px;'>
+    <div style='font-size:11px; font-weight:bold; letter-spacing:2px; color:#777; margin-bottom:8px;'>POUR ALLER PLUS LOIN</div>
+    <h3 style='font-size:19px; color:#222; margin:0 0 14px 0;'>Les limites de notre enquête</h3>
+
+    <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:15px;'>
+        <div>
+            <strong>Un échantillon restreint</strong>
+            <p style='font-size:13px; line-height:1.6; color:#666; margin:5px 0 0 0;'>Les 52 réponses proviennent d'une seule promotion de Sciences Po Paris et ne représentent pas tous les utilisateurs de Strava.</p>
+        </div>
+
+        <div>
+            <strong>Des pratiques spécifiques</strong>
+            <p style='font-size:13px; line-height:1.6; color:#666; margin:5px 0 0 0;'>La plupart des répondants pratiquent la course à pied ou le trail. D'autres sports pourraient entraîner des usages différents.</p>
+        </div>
+
+        <div>
+            <strong>Des déclarations individuelles</strong>
+            <p style='font-size:13px; line-height:1.6; color:#666; margin:5px 0 0 0;'>Les résultats reposent sur les perceptions des participants, sans observation directe de leurs entraînements.</p>
+        </div>
+
+        <div>
+            <strong>Des liens difficiles à établir</strong>
+            <p style='font-size:13px; line-height:1.6; color:#666; margin:5px 0 0 0;'>Le questionnaire révèle des tendances, mais ne permet pas d'affirmer que Strava cause directement motivation, pression ou changements de comportement.</p>
+        </div>
+
+   </div>
+
+<!-- ================================================= -->
+<!-- ENTRETIENS -->
+<!-- ================================================= -->
+
+<section class='section' id='entretiens'>
+
+<div class='section-number'>05 — ENTRETIENS</div>
+
+<h2>Comprendre les expériences individuelles</h2>
+
+<p>
+Pour compléter notre questionnaire, nous avons réalisé cinq entretiens
+semi-directifs. L'objectif était de comprendre plus précisément la manière
+dont les utilisateurs vivent leur rapport à Strava, à la performance,
+à la comparaison et aux fonctionnalités sociales de l'application.
+</p>
+
+
+<!-- ================================================= -->
+<!-- GRILLE D'ENTRETIEN -->
+<!-- ================================================= -->
+
+<div class='pdf-container'>
+
+<h3>Guide d'entretien</h3>
+
+<p>
+Consultez directement notre grille d'entretien utilisée pour les entretiens
+semi-directifs.
+</p>
+
+<iframe
+  src='Guide_entretien_Strava.pdf'
+        width='100%'
+        height='500'
+        style='border:1px solid #ddd; border-radius:10px;'>
+</iframe>
+
+</div>
+<!-- ================================================= -->
+<!-- ENTRETIEN MARTIN -->
+<!-- ================================================= -->
+<div class='interviews'>
+
+<div class='interview'>
+<div class='interview-number'>ENTRETIEN 01</div>
+<h3>Martin</h3>
+<p>
+Pratiques sportives, challenges, performances et dimension sociale de Strava.
+</p>
+<a class='orange' href='Martin_Entretien.docx'>
+Lire la retranscription →
+</a>
+</div>
+
+<!-- ================================================= -->
+<!-- ENTRETIEN LILY -->
+<!-- ================================================= -->
+<div class='interview'>
+<div class='interview-number'>ENTRETIEN 02</div>
+<h3>Lily</h3>
+<p>
+Performance, comparaison sociale, pression et influence de Strava
+sur la pratique sportive.
+</p>
+<a class='orange' href='Lily_Entretien.docx'>
+Lire la retranscription →
+</a>
+
+</div>
+
+<!-- ================================================= -->
+<!-- ENTRETIEN Stéphane -->
+<!-- ================================================= -->
+<div style=margin-top: 24px; width: 100%;>
+    <div class='interview' style='width: 100%; box-sizing: border-box;'>
+<div class='interview-number'>ENTRETIEN 03</div>
+<h3>Stéphane</h3>
+<p>
+L’usage de Strava entre suivi des performances, comparaison aux autres et pression ressentie dans la pratique sportive.
+</p>
+<a class='orange' href='Stéphane_Entretien.docx'>
+Lire la retranscription →
+</a>
+
+</div>
+<!-- ================================================= -->
+<!-- ENTRETIEN Anais -->
+<!-- ================================================= -->
+    <div class='interview' style='width: 100%; box-sizing: border-box;'>
+<div class='interview-number'>ENTRETIEN 05</div>
+<h3>Anais</h3>
+<p>
+        Strava comme outil de suivi personnel : les chiffres permettent de mesurer sa progression sans que la compétition avec les autres soit centrale.
+</p>
+<a class='orange' href='Anais_Entretien.docx'>
+Lire la retranscription →
+</a>
+</div>
+</div>
+
+<!-- ================================================= -->
+<!-- ENTRETIEN Julie -->
+<!-- ================================================= -->
+<div style=margin-top: 24px; width: 100%;>
+    <div class='interview' style='width: 100%; box-sizing: border-box;'>
+<div class='interview-number'>ENTRETIEN 04</div>
+<h3>Julie</h3>
+<p>
+        Entre motivation et pression : la comparaison aux amis influence les performances, l’image de soi et parfois la décision même d’aller courir.
+</p>
+<a class='orange' href='Julie_Entretien.docx'>
+Lire la retranscription →
+</a>
+</div>
+</div>
+<!-- ================================================= -->
+<!-- ANALYSE DES ENTRETIENS -->
+<!-- ================================================= -->
+
+
+<style>
+#analyse-entretiens {
+  --ae-orange: #f36b3f;
+  --ae-green: #43866d;
+  --ae-blue: #5869bb;
+  --ae-purple: #9361a8;
+  --ae-yellow: #c18b32;
+  color: #292b32;
+  padding: 34px 0 50px;
+}
+
+#analyse-entretiens * {
+  box-sizing: border-box;
+}
+
+#analyse-entretiens .ae-heading {
+  font-size: clamp(21px, 2.5vw, 27px);
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+  font-weight: 750;
+}
+
+#analyse-entretiens .ae-intro {
+  font-size: 14px;
+  color: #777780;
+  margin: 0 0 26px;
+  line-height: 1.7;
+}
+
+#analyse-entretiens .ae-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+#analyse-entretiens .ae-card {
+  --ae-accent: var(--ae-orange);
+  --ae-tint: #fff1e9;
+  position: relative;
+  padding: 25px 25px 23px;
+  background: #fffdfb;
+  border: 1px solid #eee9e4;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+#analyse-entretiens .ae-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--ae-accent);
+}
+
+#analyse-entretiens .ae-card.ae-green {
+  --ae-accent: var(--ae-green);
+  --ae-tint: #eaf4ee;
+}
+
+#analyse-entretiens .ae-card.ae-blue {
+  --ae-accent: var(--ae-blue);
+  --ae-tint: #edf0ff;
+}
+
+#analyse-entretiens .ae-card.ae-purple {
+  --ae-accent: var(--ae-purple);
+  --ae-tint: #f5edfa;
+}
+
+#analyse-entretiens .ae-card.ae-yellow {
+  --ae-accent: var(--ae-yellow);
+  --ae-tint: #fbf3df;
+}
+
+#analyse-entretiens .ae-card:last-child {
+  grid-column: 1 / -1;
+}
+
+#analyse-entretiens .ae-card-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 15px;
+}
+
+#analyse-entretiens .ae-number {
+  flex: 0 0 39px;
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--ae-tint);
+  color: var(--ae-accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+#analyse-entretiens .ae-card h3 {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 750;
+  letter-spacing: -0.2px;
+}
+
+#analyse-entretiens .ae-card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #5d5e66;
+  margin: 0;
+}
+
+#analyse-entretiens .ae-card:last-child p {
+  max-width: 850px;
+}
+
+#analyse-entretiens .ae-takeaway {
+  margin-top: 20px;
+  padding: 18px 22px;
+  background: #292b32;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+#analyse-entretiens .ae-takeaway-label {
+  flex: 0 0 auto;
+  color: #ffb393;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-top: 3px;
+}
+
+#analyse-entretiens .ae-takeaway p {
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+  color: #f0eef0;
+}
+
+@media (max-width: 650px) {
+  #analyse-entretiens .ae-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #analyse-entretiens .ae-card:last-child {
+    grid-column: auto;
+  }
+
+  #analyse-entretiens .ae-card {
+    padding: 23px 20px;
+  }
+
+  #analyse-entretiens .ae-takeaway {
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+</style>
+
+<div style='width:100%; grid-column:1 / -1;'>
+<section id='analyse-entretiens'>
+
+  <h2 class='ae-heading'>Analyse croisée des cinq entretiens</h2>
+  <p class='ae-intro'>
+    Cinq dimensions pour comprendre les usages de Strava et leurs effets contrastés.
+  </p>
+
+  <div class='ae-grid'>
+
+    <article class='ae-card'>
+      <div class='ae-card-top'>
+        <span class='ae-number'>01</span>
+        <h3>Suivre ses performances</h3>
+      </div>
+      <p>
+        Strava permet de mesurer ses progrès grâce aux statistiques
+        personnelles. Pour Anaïs et Martin, les données servent surtout
+        à suivre leur pratique, mais peuvent aussi donner davantage
+        de poids aux chiffres qu'aux sensations.
+      </p>
+    </article>
+
+    <article class='ae-card ae-green'>
+      <div class='ae-card-top'>
+        <span class='ae-number'>02</span>
+        <h3>La gamification comme motivation</h3>
+      </div>
+      <p>
+        Les défis et les objectifs chiffrés rendent le sport plus ludique
+        et peuvent encourager à pratiquer davantage. Chez Lily, ils
+        peuvent même conduire à prolonger une sortie pour atteindre
+        un objectif fixé.
+      </p>
+    </article>
+
+    <article class='ae-card ae-blue'>
+      <div class='ae-card-top'>
+        <span class='ae-number'>03</span>
+        <h3>Se comparer aux autres</h3>
+      </div>
+      <p>
+        La comparaison peut motiver, comme chez Julie, mais aussi
+        impressionner ou décevoir, comme chez Anaïs. Ses effets varient
+        selon les utilisateurs et leur rapport à la performance.
+      </p>
+    </article>
+
+    <article class='ae-card ae-purple'>
+      <div class='ae-card-top'>
+        <span class='ae-number'>04</span>
+        <h3>Publier et être regardé</h3>
+      </div>
+      <p>
+        Partager ses activités expose les performances au regard des
+        autres. Lily peut hésiter à publier une séance jugée insuffisante,
+        tandis que Martin privilégie davantage la dimension relationnelle
+        de l'application que la compétition.
+      </p>
+    </article>
+
+    <article class='ae-card ae-yellow'>
+      <div class='ae-card-top'>
+        <span class='ae-number'>05</span>
+        <h3>Entre progression et pression</h3>
+      </div>
+      <p>
+        Les chiffres peuvent aider à organiser son entraînement, comme
+        pour Anaïs, mais aussi générer de la frustration lorsque les
+        résultats ne correspondent pas aux attentes, comme chez Julie
+        et Lily. Strava entretient ainsi un rapport ambivalent à la
+        performance.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+</div>
+
+</section>
+<!-- ================================================= -->
+<!-- RECHERCHE -->
+<!-- ================================================= -->
+
+<section class='section' id='recherche'>
+
+<div class='section-number'>06 — CE QUE DIT LA RECHERCHE</div>
+
+<h2>Quatre articles scientifiques</h2>
+
+<p>
+Nous avons sélectionné quatre recherches permettant de mettre notre enquête
+en perspective et de comparer nos observations avec des travaux existants.
+</p>
+
+<!-- RECHERCHE SCIENTIFIQUE -->
+<section class='section' id='recherche'>
+
+       </div>
+
+    <div style='display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; max-width:1000px; margin:35px auto;'>
+
+        <!-- ARTICLE 01 -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:12px; padding:22px; min-height:310px; box-sizing:border-box; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+
+            <div style='color:#ff6b35; font-size:13px; font-weight:bold; letter-spacing:1px; margin-bottom:10px;'>
+                ARTICLE 01
+            </div>
+
+            <h3 style='font-size:18px; line-height:1.3; margin:0 0 12px;'>
+                From Kilometers to Kudos: A Study of Runners’ Online Interaction on Strava
+            </h3>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Sujet :</strong> L’article étudie Strava comme outil de suivi sportif mais aussi comme espace d’interaction entre coureurs.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Méthode :</strong> enquête qualitative fondée sur des entretiens semi-directifs et des observations netnographiques.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Résultats :</strong> les kudos, le partage des activités et la visibilité des performances peuvent renforcer la motivation, mais aussi créer comparaison et pression.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0;'>
+                <strong>Notion clé :</strong> <em>self-presentation</em>. Les utilisateurs sélectionnent ce qu’ils publient afin de construire une certaine image d’eux-mêmes comme sportifs.
+            </p>
+
+            <div style='margin-top:16px;'>
+                <a href='Article_1.docx' target='_blank' style='color:#ff6b35; font-size:14px; font-weight:bold; text-decoration:none;'>
+                    Lire notre analyse →
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- ARTICLE 02 -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:12px; padding:22px; min-height:310px; box-sizing:border-box; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+
+            <div style='color:#ff6b35; font-size:13px; font-weight:bold; letter-spacing:1px; margin-bottom:10px;'>
+                ARTICLE 02
+            </div>
+
+            <h3 style='font-size:18px; line-height:1.3; margin:0 0 12px;'>
+                “If It's not on Strava it Didn't Happen”: Perceived Psychosocial Implications of Strava use in Collegiate Club Runners
+            </h3>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Sujet :</strong> L’article analyse les effets psychosociaux de Strava chez des coureurs universitaires américains.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Méthode :</strong> entretiens semi-directifs avec 18 coureurs issus de clubs universitaires.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Résultats :</strong> trois dimensions principales apparaissent : <em>self-presentation</em>, pression sociale et motivation.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0;'>
+                <strong>Intérêt :</strong> Strava peut renforcer l’engagement et le lien social tout en produisant comparaison et pression.
+            </p>
+
+            <div style='margin-top:16px;'>
+                <a href='Article_2.docx' target='_blank' style='color:#ff6b35; font-size:14px; font-weight:bold; text-decoration:none;'>
+                    Lire notre analyse →
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- ARTICLE 03 -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:12px; padding:22px; min-height:310px; box-sizing:border-box; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+
+            <div style='color:#ff6b35; font-size:13px; font-weight:bold; letter-spacing:1px; margin-bottom:10px;'>
+                ARTICLE 03
+            </div>
+
+            <h3 style='font-size:18px; line-height:1.3; margin:0 0 12px;'>
+                Strava use in competitive female runners: A qualitative exploration of perceived utility and psychosocial implications
+            </h3>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Sujet :</strong> L’étude examine les usages et les effets psychosociaux de Strava chez 19 coureuses compétitives.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Méthode :</strong> 19 entretiens semi-directifs analysés par une analyse thématique réflexive.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+                <strong>Résultats :</strong> Strava participe à l’identité de coureuse, favorise le lien et la motivation, mais peut aussi renforcer comparaison et pression à performer.
+            </p>
+
+            <p style='font-size:14px; line-height:1.5; color:#555; margin:0;'>
+                <strong>Notions :</strong> comparaison sociale, <em>self-presentation</em>, identité sportive et gamification.
+            </p>
+
+            <div style='margin-top:16px;'>
+                <a href='Article_3.docx' target='_blank' style='color:#ff6b35; font-size:14px; font-weight:bold; text-decoration:none;'>
+                    Lire notre analyse →
+                </a>
+            </div>
+
+        </div>
+
+
+       <!-- ARTICLE 04 -->
+<div style='background:white; border:1px solid #e8e8e8; border-radius:12px; padding:22px; min-height:310px; box-sizing:border-box; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+
+    <div style='color:#ff6b35; font-size:13px; font-weight:bold; letter-spacing:1px; margin-bottom:10px;'>
+        ARTICLE 04
+    </div>
+
+    <h3 style='font-size:18px; line-height:1.3; margin:0 0 12px;'>
+        Changing emotional engagement with running through communal self-tracking
+    </h3>
+
+    <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+        <strong>Sujet :</strong> L’étude analyse comment le suivi communautaire sur Strava transforme le sens et les émotions associés à la pratique de la course.
+    </p>
+
+    <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+        <strong>Méthode :</strong> Une enquête qualitative avec 6 mois d’immersion dans un club de course et 17 entretiens approfondis.
+    </p>
+
+    <p style='font-size:14px; line-height:1.5; color:#555; margin:0 0 10px;'>
+        <strong>Résultats :</strong> Le <em>labelling</em>, les récompenses sociales et la matérialisation de l’effort peuvent donner du sens à la course et renforcer l’engagement, mais aussi créer une pression à publier ou à ne pas manquer une sortie.
+    </p>
+
+    <p style='font-size:14px; line-height:1.5; color:#555; margin:0;'>
+        <strong>Notions :</strong> <em>teleoaffective shaping</em>, reconnaissance sociale, motivation, théorie des pratiques et matérialisation de l’effort.
+    </p>
+
+    <div style='margin-top:16px;'>
+        <a href='Article_4.docx' target='_blank' style='color:#ff6b35; font-size:14px; font-weight:bold; text-decoration:none;'>
+            Lire notre analyse →
+        </a>
+    </div>
+</div> 
+</section>
+
+
+        <h3 style='font-size:24px; margin:7px 0 10px;'>
+        Synthèse de la littérature scientifique
+        </h3>
+
+        <p style='font-size:16px; line-height:1.65; color:#596970;'>
+            La littérature scientifique invite à ne pas réduire Strava à un simple outil de mesure sportive. Spotswood et al. (2020) montrent que le suivi collectif des activités peut transformer le sens et les émotions associés à la course. Hallgren et al. (2026) analysent les interactions en ligne et la manière dont les coureurs présentent leur pratique sportive aux autres. Russell et al. (2023), dans leur étude sur des coureurs universitaires, mettent en évidence des liens entre motivation, pression sociale et présentation de soi. Leur étude de 2026, consacrée aux coureuses de compétition, approfondit ces questions en examinant l’utilité perçue de Strava et ses implications psychosociales. Ensemble, ces quatre articles permettent d’interpréter les résultats de notre questionnaire comme l’expression d’usages variés : Strava peut aider à suivre sa progression, à entretenir sa motivation et à maintenir des liens sociaux, tout en favorisant parfois la comparaison avec les autres et la pression liée à la performance. 
+        </p>
+    </div>
+</section>
+
+<!-- ================================================= -->
+<!-- QUANTITATIF -->
+<!-- ================================================= -->
+
+<section class='section' id='quantitatif'>
+
+<div class='section-number'>07 — DONNÉES QUANTITATIVES</div>
+
+<h2>Le phénomène en chiffres</h2>
+
+<p>
+Nous confrontons ici les résultats de notre enquête avec les données
+quantitatives disponibles sur les usages sportifs numériques.
+</p>
+
+<!-- DONNÉES QUANTITATIVES -->
+<section class='section' id='donnees'>
+
+    </div>
+
+    <p style='max-width:850px; margin:0 auto 35px; text-align:center; color:#667780; font-size:17px; line-height:1.6;'>
+        Quelques chiffres permettent de mesurer l’ampleur de Strava et de comprendre
+        l’importance prise par les dimensions sociale, quantitative et ludique de l’application.
+    </p>
+
+
+    <!-- GRANDE GRILLE DE CHIFFRES -->
+    <div style='display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; max-width:1100px; margin:35px auto;'>
+
+        <!-- 200 MILLIONS -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:14px; padding:25px 18px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+            <div style='font-size:34px; font-weight:800; color:#ff6b35;'>200 M</div>
+            <div style='font-size:15px; font-weight:bold; margin-top:8px;'>utilisateurs</div>
+            <div style='font-size:13px; color:#77858c; margin-top:6px;'>dans le monde</div>
+        </div>
+
+        <!-- 185 PAYS -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:14px; padding:25px 18px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+            <div style='font-size:34px; font-weight:800; color:#ff6b35;'>185</div>
+            <div style='font-size:15px; font-weight:bold; margin-top:8px;'>pays</div>
+            <div style='font-size:13px; color:#77858c; margin-top:6px;'>où Strava est utilisé</div>
+        </div>
+
+        <!-- ACTIVITES -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:14px; padding:25px 18px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+            <div style='font-size:34px; font-weight:800; color:#ff6b35;'>51 M</div>
+            <div style='font-size:15px; font-weight:bold; margin-top:8px;'>activités</div>
+            <div style='font-size:13px; color:#77858c; margin-top:6px;'>enregistrées chaque semaine</div>
+        </div>
+
+        <!-- KUDOS -->
+        <div style='background:white; border:1px solid #e8e8e8; border-radius:14px; padding:25px 18px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,0.05);'>
+            <div style='font-size:34px; font-weight:800; color:#ff6b35;'>14 Md</div>
+            <div style='font-size:15px; font-weight:bold; margin-top:8px;'>Kudos</div>
+            <div style='font-size:13px; color:#77858c; margin-top:6px;'>donnés en 2025</div>
+        </div>
+
+    </div>
+
+
+    <!-- DEUXIEME LIGNE -->
+    <div style='display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; max-width:1100px; margin:0 auto 45px;'>
+
+        <!-- MULTISPORT -->
+        <div style='background:#f7f8f8; border-radius:14px; padding:23px 18px; text-align:center;'>
+            <div style='font-size:30px; font-weight:800;'>54 %</div>
+            <div style='font-size:14px; margin-top:7px;'>des utilisateurs</div>
+            <div style='font-size:13px; color:#77858c; margin-top:5px;'>
+                enregistrent plusieurs types d’activités
+            </div>
+        </div>
+
+        <!-- CLUBS -->
+        <div style='background:#f7f8f8; border-radius:14px; padding:23px 18px; text-align:center;'>
+            <div style='font-size:30px; font-weight:800;'>1 M</div>
+            <div style='font-size:14px; margin-top:7px;'>de clubs Strava</div>
+            <div style='font-size:13px; color:#77858c; margin-top:5px;'>
+                atteints en 2025
+            </div>
+        </div>
+
+        <!-- APPLICATION -->
+        <div style='background:#f7f8f8; border-radius:14px; padding:23px 18px; text-align:center;'>
+            <div style='font-size:30px; font-weight:800;'>72 %</div>
+            <div style='font-size:14px; margin-top:7px;'>des activités</div>
+            <div style='font-size:13px; color:#77858c; margin-top:5px;'>
+                sont enregistrées directement via l’application
+            </div>
+        </div>
+
+        <!-- ROUTES -->
+        <div style='background:#f7f8f8; border-radius:14px; padding:23px 18px; text-align:center;'>
+            <div style='font-size:30px; font-weight:800;'>19 sec</div>
+            <div style='font-size:14px; margin-top:7px;'>pour créer une nouvelle route</div>
+            <div style='font-size:13px; color:#77858c; margin-top:5px;'>
+               : rapidité des utilisateurs a créer des parcours
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- TITRE ANALYSE -->
+    <div style='max-width:1000px; margin:0 auto 25px;'>
+        <div style='color:#ff6b35; font-size:13px; font-weight:bold; letter-spacing:1.5px;'>
+            CE QUE LES CHIFFRES NOUS DISENT
+        </div>
+
+        <h3 style='font-size:24px; margin:7px 0 10px;'>
+            Une application devenue un espace social
+        </h3>
+
+        <p style='font-size:16px; line-height:1.65; color:#596970;'>
+            Les chiffres montrent que Strava ne fonctionne plus uniquement comme un
+            outil individuel de suivi sportif. Les <strong>14 milliards de Kudos</strong>
+            donnés en 2025 illustrent l’importance des interactions entre utilisateurs,
+            tandis que le développement des clubs montre que les activités enregistrées
+            peuvent également produire des formes de sociabilité.
+        </p>
+    </div>
+
+
+    <!-- BARRES -->
+    <div style='max-width:1000px; margin:30px auto 50px; background:white; border:1px solid #e8e8e8; border-radius:14px; padding:28px; box-shadow:0 3px 12px rgba(0,0,0,0.04);'>
+
+        <h3 style='font-size:18px; margin:0 0 25px;'>
+            Quelques tendances mesurées par Strava
+        </h3>
+
+        <!-- 54% -->
+        <div style='margin-bottom:22px;'>
+            <div style='display:flex; justify-content:space-between; font-size:14px; margin-bottom:7px;'>
+                <span>Utilisateurs pratiquant plusieurs sports sur l'application </span>
+                <strong>54 %</strong>
+            </div>
+
+            <div style='height:10px; background:#edf0f1; border-radius:10px; overflow:hidden;'>
+                <div style='width:54%; height:100%; background:#ff6b35; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <!-- 72% -->
+        <div style='margin-bottom:22px;'>
+            <div style='display:flex; justify-content:space-between; font-size:14px; margin-bottom:7px;'>
+                <span>Activités enregistrées via l’application Strava</span>
+                <strong>72 %</strong>
+            </div>
+
+            <div style='height:10px; background:#edf0f1; border-radius:10px; overflow:hidden;'>
+                <div style='width:72%; height:100%; background:#ff6b35; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <!-- 2024 -->
+        <div style='margin-bottom:22px;'>
+            <div style='display:flex; justify-content:space-between; font-size:14px; margin-bottom:7px;'>
+                <span>Hausse de la participation aux clubs de course en 2024</span>
+                <strong>+59 %</strong>
+            </div>
+
+            <div style='height:10px; background:#edf0f1; border-radius:10px; overflow:hidden;'>
+                <div style='width:59%; height:100%; background:#ff6b35; border-radius:10px;'></div>
+            </div>
+        </div>
+
+        <!-- GROUPES -->
+        <div>
+            <div style='display:flex; justify-content:space-between; font-size:14px; margin-bottom:7px;'>
+                <span>Durée supplémentaire des activités en groupe de +10 personnes</span>
+                <strong>+40 %</strong>
+            </div>
+
+            <div style='height:10px; background:#edf0f1; border-radius:10px; overflow:hidden;'>
+                <div style='width:40%; height:100%; background:#ff6b35; border-radius:10px;'></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- REDDIT -->
+    <div style='max-width:1000px; margin:0 auto 45px; background:#fff7f3; border:1px solid #ffd9ca; border-radius:16px; padding:28px;'>
+
+        <div style='display:flex; align-items:center; gap:12px; margin-bottom:18px;'>
+            <div style='font-size:28px;'>●</div>
+
+            <div>
+                <div style='color:#ff6b35; font-size:12px; font-weight:bold; letter-spacing:1.5px;'>
+                    DONNÉES ISSUES DE LA COMMUNAUTÉ
+                </div>
+
+                <h3 style='font-size:22px; margin:4px 0 0;'>
+                    Que se passe-t-il sur r/Strava ?
+                </h3>
+            </div>
+        </div>
+
+
+        <p style='font-size:15px; line-height:1.6; color:#596970; margin-bottom:22px;'>
+            Le subreddit <strong>r/Strava</strong> permet d’observer directement les
+            discussions des utilisateurs. Contrairement aux statistiques produites par
+            Strava, ces données donnent accès aux expériences et aux préoccupations
+            exprimées par les membres de la communauté.
+        </p>
+
+
+        <!-- REDDIT STATS -->
+        <div style='display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:22px;'>
+
+            <div style='background:white; border-radius:12px; padding:20px;'>
+                <div style='font-size:30px; font-weight:800;'>122 k</div>
+                <div style='font-size:14px; font-weight:bold; margin-top:5px;'>
+                    visiteurs hebdomadaires
+                </div>
+                <div style='font-size:12px; color:#77858c; margin-top:4px;'>
+                    selon la capture du subreddit consultée
+                </div>
+            </div>
+
+            <div style='background:white; border-radius:12px; padding:20px;'>
+                <div style='font-size:30px; font-weight:800;'>1 k</div>
+                <div style='font-size:14px; font-weight:bold; margin-top:5px;'>
+                    contributions hebdomadaires
+                </div>
+                <div style='font-size:12px; color:#77858c; margin-top:4px;'>
+                    selon la capture du subreddit consultée
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- OBSERVATIONS REDDIT -->
+        <div style='background:white; border-radius:12px; padding:22px;'>
+
+            <h4 style='font-size:16px; margin:0 0 15px;'>
+                Ce que les discussions font apparaître
+            </h4>
+
+            <div style='display:grid; grid-template-columns:repeat(3, 1fr); gap:15px;'>
+
+                <div>
+                    <div style='font-size:14px; font-weight:bold; margin-bottom:6px;'>
+                        Social
+                    </div>
+
+                    <p style='font-size:13px; line-height:1.5; color:#667780; margin:0;'>
+                        Les utilisateurs citent régulièrement les amis, les clubs,
+                        les parcours partagés et les Kudos comme raisons d’utiliser
+                        ou de continuer à utiliser Strava.
+                    </p>
+                </div>
+
+
+                <div>
+                    <div style='font-size:14px; font-weight:bold; margin-bottom:6px;'>
+                        Comparaison
+                    </div>
+
+                    <p style='font-size:13px; line-height:1.5; color:#667780; margin:0;'>
+                        Certaines discussions portent sur les classements, les
+                        performances des autres utilisateurs et la comparaison
+                        des temps sur les segments.
+                    </p>
+                </div>
+
+
+                <div>
+                    <div style='font-size:14px; font-weight:bold; margin-bottom:6px;'>
+                        Motivation
+                    </div>
+
+                    <p style='font-size:13px; line-height:1.5; color:#667780; margin:0;'>
+                        Les challenges, les données historiques et la progression
+                        personnelle apparaissent également comme des sources
+                        de motivation.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div style='margin-top:20px;'>
+            <a href='https://www.reddit.com/r/Strava/' target='_blank'
+               style='color:#ff6b35; font-size:14px; font-weight:bold; text-decoration:none;'>
+                Voir la communauté r/Strava →
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- LIEN AVEC LA PROBLEMATIQUE -->
+    <div style='max-width:1000px; margin:0 auto; background:#1f2d33; color:white; border-radius:16px; padding:30px;'>
+
+        <div style='color:#ff9a73; font-size:12px; font-weight:bold; letter-spacing:1.5px;'>
+            À RETENIR
+        </div>
+
+        <h3 style='font-size:23px; margin:8px 0 14px;'>
+            Des chiffres qui posent une question
+        </h3>
+
+        <p style='font-size:16px; line-height:1.65; color:#e8eeee; margin:0;'>
+            Avec des millions d’activités enregistrées chaque semaine, des milliards
+            de Kudos, des classements, des challenges et une communauté très active,
+            Strava transforme une pratique sportive individuelle en une activité
+            mesurable, visible et parfois sociale.
+            <strong style='color:white;'>
+                Mais ces fonctionnalités modifient-elles réellement la manière
+                dont les utilisateurs font du sport ?
+            </strong>
+        </p>
+
+    </div>
+
+
+    <!-- SOURCES -->
+    <div style='max-width:1000px; margin:28px auto 0; font-size:12px; color:#8a969b; line-height:1.6;'>
+
+        <strong>Sources :</strong>
+
+        <a href='https://business.strava.com/why-strava/audience'
+           target='_blank'
+           style='color:#667780; text-decoration:underline;'>
+            Strava – Our Audience
+        </a>
+        ·
+
+        <a href='https://press.strava.com/fr/articles/strava-releases-12th-annual-year-in-sport-trend-report-2025'
+           target='_blank'
+           style='color:#667780; text-decoration:underline;'>
+            Strava – Year in Sport 2025
+        </a>
+        ·
+
+        <a href='https://press.strava.com/fr/articles/strava-releases-annual-year-in-sport-trend-report'
+           target='_blank'
+           style='color:#667780; text-decoration:underline;'>
+            Strava – Year in Sport 2024
+        </a>
+        ·
+
+        <a href='https://www.reddit.com/r/Strava/'
+           target='_blank'
+           style='color:#667780; text-decoration:underline;'>
+            Reddit – r/Strava
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- Analyse -->
+<!-- ================================================= -->
+
+
+<style>
+/* =====================================
+   SECTION 8 — ANALYSE
+   ===================================== */
+
+#analyse {
+  --an-orange: #f36b3f;
+  --an-orange-light: #fff0e8;
+  --an-green: #43866d;
+  --an-green-light: #eaf4ee;
+  --an-blue: #5869bb;
+  --an-blue-light: #edf0ff;
+  --an-purple: #9361a8;
+  --an-purple-light: #f5edfa;
+  --an-ink: #292b32;
+  --an-muted: #747680;
+  --an-line: #e9e6e2;
+  --an-paper: #fffdfb;
+
+  color: var(--an-ink);
+  font-family: inherit;
+  line-height: 1.8;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+}
+
+#analyse * {
+  box-sizing: border-box;
+}
+
+#analyse p {
+  margin: 0 0 20px;
+  font-size: 16px;
+}
+
+#analyse .analyse-intro {
+  background: linear-gradient(135deg, #fff0e8 0%, #fffaf5 60%, #f5edfa 100%);
+  border: 1px solid #f4e3d9;
+  border-radius: 24px;
+  padding: clamp(28px, 5vw, 56px);
+  margin-bottom: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+#analyse .analyse-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #bd4e29;
+  background: #ffffffb8;
+  border: 1px solid #f3d4c5;
+  border-radius: 100px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+#analyse .analyse-kicker::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--an-orange);
+}
+
+#analyse .analyse-main-title {
+  font-size: clamp(36px, 6vw, 66px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  font-weight: 800;
+  margin: 0 0 22px;
+  max-width: 800px;
+}
+
+#analyse .analyse-main-title span {
+  color: var(--an-orange);
+}
+
+#analyse .analyse-lead {
+  max-width: 780px;
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.75;
+  color: #50515a;
+}
+
+#analyse .analyse-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+#analyse .analyse-meta span {
+  background: #fff;
+  border: 1px solid #eee1d9;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #66616a;
+}
+
+#analyse .analyse-roadmap {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 30px 0 0;
+}
+
+#analyse .analyse-roadmap a {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 17px 15px;
+  border-radius: 15px;
+  background: #ffffffc9;
+  border: 1px solid #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#analyse .analyse-roadmap a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px #292b3210;
+}
+
+#analyse .analyse-roadmap small {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--an-muted);
+}
+
+#analyse .analyse-roadmap strong {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+#analyse .analyse-roadmap .roadmap-1 strong {
+  color: #c4532d;
+}
+
+#analyse .analyse-roadmap .roadmap-2 strong {
+  color: var(--an-green);
+}
+
+#analyse .analyse-roadmap .roadmap-3 strong {
+  color: var(--an-blue);
+}
+
+#analyse .analyse-roadmap .roadmap-4 strong {
+  color: var(--an-purple);
+}
+
+/* Introduction des axes */
+
+#analyse .analyse-axis {
+  margin: 0 0 76px;
+  scroll-margin-top: 32px;
+}
+
+#analyse .analyse-axis-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 24px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--an-line);
+}
+
+#analyse .analyse-axis-number {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 19px;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+#analyse .axis-orange .analyse-axis-number {
+  background: var(--an-orange-light);
+  color: #c4532d;
+}
+
+#analyse .axis-green .analyse-axis-number {
+  background: var(--an-green-light);
+  color: var(--an-green);
+}
+
+#analyse .axis-blue .analyse-axis-number {
+  background: var(--an-blue-light);
+  color: var(--an-blue);
+}
+
+#analyse .axis-purple .analyse-axis-number {
+  background: var(--an-purple-light);
+  color: var(--an-purple);
+}
+
+#analyse .analyse-axis-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--an-muted);
+  margin-bottom: 6px;
+}
+
+#analyse .analyse-axis-title {
+  font-size: clamp(25px, 3.5vw, 38px);
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 800;
+}
+
+#analyse .analyse-axis-description {
+  color: var(--an-muted);
+  margin-top: 9px;
+  font-size: 15px;
+}
+
+/* Sous-parties */
+
+#analyse .analyse-subsection {
+  margin: 0 0 42px;
+}
+
+#analyse .analyse-subtitle {
+  font-size: clamp(19px, 2.5vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -.4px;
+  margin: 0 0 17px;
+  font-weight: 750;
+}
+
+#analyse .analyse-subtitle::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 23px;
+  border-radius: 8px;
+  margin-right: 12px;
+  vertical-align: -4px;
+  background: var(--an-orange);
+}
+
+#analyse .axis-green .analyse-subtitle::before {
+  background: var(--an-green);
+}
+
+#analyse .axis-blue .analyse-subtitle::before {
+  background: var(--an-blue);
+}
+
+#analyse .axis-purple .analyse-subtitle::before {
+  background: var(--an-purple);
+}
+
+/* Citations d'entretiens */
+
+#analyse .analyse-quote {
+  margin: 26px 0;
+  padding: 24px 28px;
+  border-radius: 0 16px 16px 0;
+  border-left: 4px solid var(--an-orange);
+  background: var(--an-orange-light);
+}
+
+#analyse .axis-green .analyse-quote {
+  border-left-color: var(--an-green);
+  background: var(--an-green-light);
+}
+
+#analyse .axis-blue .analyse-quote {
+  border-left-color: var(--an-blue);
+  background: var(--an-blue-light);
+}
+
+#analyse .axis-purple .analyse-quote {
+  border-left-color: var(--an-purple);
+  background: var(--an-purple-light);
+}
+
+#analyse .analyse-quote blockquote {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 550;
+  color: #34343b;
+}
+
+#analyse .analyse-quote figcaption {
+  margin-top: 13px;
+  font-size: 12px;
+  color: #6e6b73;
+  font-weight: 650;
+}
+
+/* Cartes statistiques */
+
+#analyse .analyse-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 25px 0 30px;
+}
+
+#analyse .analyse-stat-card {
+  padding: 24px;
+  border: 1px solid var(--an-line);
+  border-radius: 18px;
+  background: var(--an-paper);
+}
+
+#analyse .analyse-stat-number {
+  display: block;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.2;
+  font-weight: 850;
+  letter-spacing: -1.5px;
+  color: var(--an-orange);
+  margin-bottom: 9px;
+}
+
+#analyse .analyse-stat-card:nth-child(2) .analyse-stat-number {
+  color: var(--an-blue);
+}
+
+#analyse .analyse-stat-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #595a63;
+  margin: 0;
+}
+
+#analyse .analyse-stat-note {
+  font-size: 12px !important;
+  color: var(--an-muted);
+  margin-top: 10px !important;
+}
+
+/* Encadrés d'interprétation */
+
+#analyse .analyse-insight {
+  margin: 26px 0;
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: #f6f5f2;
+}
+
+#analyse .analyse-insight-label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 10px;
+  font-weight: 850;
+  color: #77716a;
+  margin-bottom: 7px;
+}
+
+#analyse .analyse-insight p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Conclusion */
+
+#analyse .analyse-conclusion {
+  padding: clamp(28px, 5vw, 48px);
+  background: #292b32;
+  color: #fff;
+  border-radius: 24px;
+  margin-top: 20px;
+}
+
+#analyse .analyse-conclusion .analyse-kicker {
+  background: #ffffff12;
+  border-color: #ffffff25;
+  color: #ffc0a5;
+}
+
+#analyse .analyse-conclusion h3 {
+  margin: 0 0 18px;
+  font-size: clamp(27px, 4vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+#analyse .analyse-conclusion p {
+  color: #e5e3e5;
+  max-width: 850px;
+  margin-bottom: 0;
+}
+
+/* Adaptation aux écrans plus petits */
+
+@media (max-width: 760px) {
+  #analyse {
+    padding: 20px 16px 48px;
+  }
+
+  #analyse .analyse-roadmap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #analyse .analyse-axis-header {
+    gap: 13px;
+  }
+
+  #analyse .analyse-axis-number {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 18px;
+  }
+
+  #analyse .analyse-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #analyse .analyse-quote {
+    padding: 20px;
+  }
+
+  #analyse .analyse-intro {
+    border-radius: 18px;
+  }
+
+  #analyse .analyse-axis {
+    margin-bottom: 54px;
+  }
+}
+
+@media (max-width: 420px) {
+  #analyse .analyse-roadmap {
+    gap: 8px;
+  }
+
+  #analyse .analyse-roadmap a {
+    padding: 13px 11px;
+  }
+
+  #analyse .analyse-roadmap strong {
+    font-size: 13px;
+  }
+
+  #analyse .analyse-main-title {
+    letter-spacing: -1px;
+  }
+}
+</style>
+<style>
+#analyse .hypothesis-box {
+  margin: 30px 0 10px;
+  padding: 25px 28px;
+  border-radius: 16px;
+  background: #fff8f3;
+  border: 1px solid #f0dfd5;
+  border-top: 4px solid #f36b3f;
+}
+
+#analyse .axis-green .hypothesis-box {
+  background: #f2f8f4;
+  border-color: #dcebe0;
+  border-top-color: #43866d;
+}
+
+#analyse .axis-blue .hypothesis-box {
+  background: #f3f5ff;
+  border-color: #dfe3f7;
+  border-top-color: #5869bb;
+}
+
+#analyse .axis-purple .hypothesis-box {
+  background: #f8f3fa;
+  border-color: #e9ddef;
+  border-top-color: #9361a8;
+}
+
+#analyse .hypothesis-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+#analyse .hypothesis-box h4 {
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0 0 15px;
+}
+
+#analyse .hypothesis-box p {
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 12px;
+}
+
+#analyse .hypothesis-box p:last-child {
+  margin-bottom: 0;
+}
+
+#analyse .hypothesis-verdict {
+  font-weight: 750;
+  margin-top: 14px !important;
+}
+</style>
+
+<section id='analyse'>
+
+  <!-- INTRODUCTION -->
+    <header class='analyse-intro'>
+    <h2 class='analyse-main-title'>
+      8 — <span>Analyse</span>
+    </h2>
+
+    <p class='analyse-lead'>
+      « If It's Not on Strava It Didn't Happen » :
+      à travers cette formule, Strava résume une manière
+      de rendre le sport visible, mesurable et partageable.
+      Mais comment les données, les mécanismes de jeu et
+      les interactions sociales transforment-ils l'expérience
+      sportive ?
+    </p>
+
+    <div class='analyse-meta'>
+      <span>5 entretiens qualitatifs</span>
+      <span>52 réponses au questionnaire</span>
+      <span>Strava et pratiques sportives</span>
+    </div>
+    <nav class='analyse-roadmap' aria-label='Navigation dans l'analyse'>
+      <a class='roadmap-1' href='#analyse-mesurer'>
+        <small>01 / MESURER</small>
+        <strong>Les données et soi</strong>
+      </a>
+      <a class='roadmap-2' href='#analyse-jouer'>
+        <small>02 / JOUER</small>
+        <strong>Défis et sociabilité</strong>
+      </a>
+      <a class='roadmap-3' href='#analyse-etre-vu'>
+        <small>03 / ÊTRE VU</small>
+        <strong>Comparaison et regard social</strong>
+      </a>
+      <a class='roadmap-4' href='#analyse-approprier'>
+        <small>04 / S'APPROPRIER</small>
+        <strong>Usages et limites</strong>
+      </a>
+    </nav>
+  </header>
+
+  <!-- AXE 1 -->
+  <article class='analyse-axis axis-orange' id='analyse-mesurer'>
+    <header class='analyse-axis-header'>
+      <div class='analyse-axis-number'>01</div>
+      <div>
+        <span class='analyse-axis-label'>Premier axe</span>
+        <h3 class='analyse-axis-title'>
+          Mesurer : quand les données deviennent une manière
+          de penser l'effort
+        </h3>
+        <p class='analyse-axis-description'>
+          La trace sportive, l'auto-évaluation et le suivi
+          de la performance.
+        </p>
+      </div>
+    </header>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        1.1. Une trace de soi : se souvenir et suivre sa pratique
+      </h4>
+      <p>
+        Strava permet de conserver une trace des activités
+        sportives. L'enregistrement des sorties ne sert donc
+        pas uniquement à mesurer une performance immédiate :
+        il permet aussi de constituer un historique de sa
+        pratique et de suivre son évolution.
+      </p>
+      <p>
+        Les entretiens font apparaître des usages différents
+        de cet historique. Pour certains, il constitue un
+        journal de bord ; pour d'autres, il représente avant
+        tout un ensemble de données à accumuler et à consulter.
+        Ces différences invitent à interroger la place de la
+        socialisation sportive et familiale dans les manières
+        d'utiliser l'application.
+      </p>
+
+      <figure class='analyse-quote'>
+        <blockquote>
+          « Moi j’ai commencé à utiliser Strava au début du collège, en 2017 je pense, parce qu’en fait ma famille était déjà sur Strava »
+        </blockquote>
+        <figcaption>Entretien avec Anaïs</figcaption>
+      </figure>
+
+      <p>
+        L'exemple de Martin permet également d'interroger
+        la fonction de la trace : enregistrer un parcours
+        peut servir à garder un souvenir, à comparer plusieurs
+        sorties ou à constituer progressivement un historique
+        personnel. L'accumulation des données ne signifie
+        toutefois pas que tous les utilisateurs leur attribuent
+        la même importance.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        1.2. Mesurer pour se comparer à soi-même
+      </h4>
+      <p>
+        Les données peuvent également devenir un instrument
+        d'auto-évaluation. La distance, le temps ou l'allure
+        permettent de comparer une sortie à une précédente
+        et de matérialiser une progression. La comparaison
+        ne porte alors pas nécessairement sur les autres :
+        elle peut d'abord s'organiser autour de ses propres
+        performances.
+      </p>
+
+      <figure class='analyse-quote'>
+        <blockquote>
+          « est-ce que je suis mieux qu’avant ? Est-ce que je m’améliore de plus en plus ou pas ? Quand tu commences à vraiment utiliser l’application et à suivre vraiment tes rythmes, tu l’utilises plutôt pour te challenger »
+        </blockquote>
+        <figcaption>Entretien avec Julie</figcaption>
+      </figure>
+
+      <p>
+        Les records personnels, ou PRs (« personal records »),
+        renforcent cette logique. Ils donnent des repères
+        concrets pour évaluer l'évolution de ses performances.
+        La mesure peut ainsi contribuer à entretenir la
+        motivation, sans que cette motivation soit nécessairement
+        tournée vers la compétition avec autrui.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        1.3. Avant, pendant et après l'effort
+      </h4>
+      <p>
+        L'application peut intervenir à différents moments
+        de la pratique : dans la préparation d'une sortie,
+        pendant l'activité lorsque les données sont consultées
+        en temps réel, puis après l'effort, au moment d'examiner
+        les résultats. La mesure ne se limite donc pas à
+        un bilan rétrospectif : elle peut aussi participer
+        à la manière dont l'activité est organisée.
+      </p>
+
+      <figure class='analyse-quote'>
+        <blockquote>
+          « Pendant ma séance, ça peut me pousser à aller plus loin dans l’effort. Par exemple, si je m’arrête et que je suis à 9 km, je vais vouloir aller à 10 km »
+        </blockquote>
+        <figcaption>Entretien avec Lily</figcaption>
+      </figure>
+
+      <div class='analyse-insight'>
+        <span class='analyse-insight-label'>À retenir</span>
+        <p>
+          Mesurer son activité ne revient pas simplement
+          à produire des chiffres. Les données prennent
+          leur sens dans les usages que les sportifs en font :
+          conserver une trace, évaluer leur progression
+          ou orienter leurs efforts futurs.
+        </p>
+      </div>
+    </section>
+  <div class='hypothesis-box'>
+  <div class='hypothesis-label'>Lien avec l'hypothèse 1</div>
+  <h4>Se comparer pour progresser</h4>
+
+  <p>
+    Notre première hypothèse supposait que la visibilité des performances
+    et les mécanismes de comparaison inciteraient certains utilisateurs
+    à améliorer leurs résultats. Les entretiens vont dans ce sens :
+    Julie explique utiliser ses statistiques pour suivre ses progrès,
+    tandis que Lily décrit comment un objectif chiffré peut la pousser
+    à prolonger son effort. Les données permettent donc de se fixer
+    des objectifs et de mesurer sa progression.
+  </p>
+
+  <p>
+    Ces résultats rejoignent les travaux de Russell et al. (2023, 2026),
+    qui étudient l'utilité perçue de Strava et ses implications
+    psychosociales chez les coureurs. Ils invitent toutefois à distinguer
+    la comparaison avec ses propres performances de celle avec les autres.
+  </p>
+
+  <p class='hypothesis-verdict'>
+    Bilan : hypothèse partiellement confirmée. Les données favorisent
+    le suivi des progrès, mais leur effet dépend des usages individuels.
+  </p>
+</div>
+  </article>
+
+  <!-- AXE 2 -->
+  <article class='analyse-axis axis-green' id='analyse-jouer'>
+    <header class='analyse-axis-header'>
+      <div class='analyse-axis-number'>02</div>
+      <div>
+        <span class='analyse-axis-label'>Deuxième axe</span>
+        <h3 class='analyse-axis-title'>
+          Jouer et appartenir : gamification et sociabilités sportives
+        </h3>
+        <p class='analyse-axis-description'>
+          Segments, défis, récompenses et reconnaissance sociale.
+        </p>
+      </div>
+    </header>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        2.1. Les segments : de nouveaux objectifs sportifs
+      </h4>
+      <p>
+        Les segments permettent de comparer les performances
+        réalisées sur une portion précise d'un parcours.
+        Ils introduisent une dimension compétitive dans des
+        espaces qui ne sont pas nécessairement conçus au départ
+        comme des lieux de compétition.
+      </p>
+      <p>
+        Le cas de Lily, qui revient sur un segment pour
+        récupérer une place dans le classement, montre que
+        les fonctionnalités de l'application peuvent influer
+        sur les objectifs poursuivis pendant une sortie.
+        Le parcours ne constitue plus seulement un itinéraire :
+        il peut aussi devenir un espace où une performance
+        est évaluée par rapport à celles des autres.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        2.2. Badges et défis : transformer l'effort en jeu
+      </h4>
+      <p>
+        Les badges, les défis et les objectifs proposés
+        par l'application rapprochent la pratique sportive
+        de certains mécanismes du jeu. Ils donnent des objectifs
+        à atteindre et rendent certaines réalisations
+        particulièrement visibles.
+      </p>
+      <p>
+        L'entretien avec Martin permet d'examiner la manière
+        dont ces mécanismes sont appropriés. Leur présence
+        ne suffit pas à démontrer qu'ils motivent tous les
+        utilisateurs de la même façon : leur importance dépend
+        notamment des attentes et des habitudes de chacun.
+      </p>
+
+      <figure class='analyse-quote'>
+        <blockquote>
+          « Même si j’ai pas trop envie, je me dis bon, en plus j’y vais et au moins j’ai mon petit [badge], peut-être que je peux gagner un truc.  »
+        </blockquote>
+        <figcaption>Entretien avec Martin</figcaption>
+      </figure>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        2.3. Les kudos : une reconnaissance sociale
+      </h4>
+      <p>
+        Les kudos permettent de réagir aux activités publiées
+        par d'autres utilisateurs. Ils constituent une forme
+        de reconnaissance entre sportifs, mais leur signification
+        dépend du réseau dans lequel ils circulent.
+      </p>
+      <p>
+        Lorsque les relations sont principalement familiales
+        ou amicales, les réactions peuvent être interprétées
+        comme des marques d'attention et de soutien. Mais
+        rendre son activité visible expose aussi à des attentes
+        sociales : le nombre de réactions, leur absence
+        ou leur répartition peuvent prendre une importance
+        variable selon les utilisateurs.
+      </p>
+
+      <div class='analyse-insight'>
+        <span class='analyse-insight-label'>À retenir</span>
+        <p>
+          Les mécanismes de jeu et les interactions sociales
+          ne sont pas deux dimensions séparées : les classements
+          valorisent certaines performances, tandis que les
+          kudos contribuent à leur reconnaissance par autrui.
+        </p>
+      </div>
+    </section>
+<div class='hypothesis-box'>
+  <div class='hypothesis-label'>Lien avec l'hypothèse 3</div>
+  <h4>Jouer pour rester motivé</h4>
+
+  <p>
+    Notre troisième hypothèse supposait que les challenges, badges
+    et records renforceraient la motivation et la régularité sportive.
+    L'entretien avec Martin illustre le rôle possible des récompenses,
+    tandis que les exemples de Lily montrent comment les objectifs
+    chiffrés peuvent encourager à poursuivre un effort.
+  </p>
+
+  <p>
+    Deterding et al. (2011) définissent la gamification comme l'utilisation
+    d'éléments de conception du jeu dans des contextes qui ne sont pas
+    des jeux. Hamari et al. (2014) montrent que ses effets doivent être
+    étudiés selon les dispositifs et les contextes. Nos entretiens
+    illustrent des mécanismes possibles, mais ne suffisent pas à
+    démontrer une hausse durable de la fréquence sportive.
+  </p>
+
+  <p class='hypothesis-verdict'>
+    Bilan : hypothèse partiellement confirmée. Les mécanismes de jeu
+    peuvent soutenir la motivation, mais leur effet varie selon
+    les utilisateurs et ne garantit pas une pratique plus régulière.
+  </p>
+</div>
+
+  </article>
+
+  <!-- AXE 3 -->
+  <article class='analyse-axis axis-blue' id='analyse-etre-vu'>
+    <header class='analyse-axis-header'>
+      <div class='analyse-axis-number'>03</div>
+      <div>
+        <span class='analyse-axis-label'>Troisième axe</span>
+        <h3 class='analyse-axis-title'>
+          Être vu : comparaison, présentation de soi et normes
+          de performance
+        </h3>
+        <p class='analyse-axis-description'>
+          Publier son activité, anticiper le regard des autres
+          et définir ce qu'est une « bonne sortie ».
+        </p>
+      </div>
+    </header>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        3.1. La comparaison avec les autres
+      </h4>
+      <p>
+        Les données du questionnaire permettent de documenter
+        la place de la comparaison dans les usages de Strava.
+        Parmi les 52 répondants, 30 déclarent se comparer
+        parfois, souvent ou très souvent aux autres.
+        La comparaison est donc présente dans les pratiques
+        d'une partie importante des personnes interrogées,
+        sans pour autant être systématique.
+      </p>
+
+      <div class='analyse-stat-grid'>
+        <div class='analyse-stat-card'>
+          <span class='analyse-stat-number'>30/52</span>
+          <p>
+            Répondants déclarant se comparer parfois, souvent
+            ou très souvent aux autres.
+          </p>
+        </div>
+        <div class='analyse-stat-card'>
+          <span class='analyse-stat-number'>22/52</span>
+          <p>
+            Autres répondants, qui ne sont pas dans les
+            catégories de fréquence regroupées ci-dessus.
+          </p>
+          <p class='analyse-stat-note'>
+          </p>
+        </div>
+      </div>
+
+      <p>
+        Ces résultats ne signifient pas que tous les répondants
+        se comparent pour les mêmes raisons. La comparaison
+        peut concerner les performances, la régularité de la
+        pratique ou les activités publiées par le réseau.
+        Les entretiens permettent d'examiner plus précisément
+        ces différences.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        3.2. Publier ou ne pas publier : une présentation de soi
+      </h4>
+      <p>
+        Publier une activité revient à choisir ce que l'on
+        rend visible aux autres. Les utilisateurs peuvent
+        sélectionner les sorties qu'ils partagent, ajuster
+        les paramètres de visibilité ou décider de ne pas
+        publier certaines performances.
+      </p>
+      <p>
+        Le cas de Lily, qui explique ne pas toujours publier
+        certaines sorties par crainte du jugement, montre
+        que la visibilité est aussi une question de présentation
+        de soi. La plateforme offre des possibilités de
+        publication, mais les utilisateurs arbitrent ce qu'ils
+        souhaitent exposer.
+      </p>
+
+      <figure class='analyse-quote'>
+        <blockquote>
+          « Il m’est déjà arrivé de ne pas publier une activité sur Strava par honte, par peur du jugement ou parce que ça ne rentrait pas dans les « gammes » de ce que je considère comme une bonne sortie.  »
+        </blockquote>
+        <figcaption>Entretien avec Lily</figcaption>
+      </figure>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        3.3. La pression d'une « bonne sortie »
+      </h4>
+      <p>
+        La comparaison et la visibilité peuvent participer
+        à la construction de normes implicites : une sortie
+        longue, rapide ou particulièrement performante peut
+        sembler plus digne d'être publiée qu'une sortie
+        plus ordinaire. Ces attentes ne sont pas nécessairement
+        formulées explicitement ; elles peuvent se construire
+        au fil des interactions et des comparaisons.
+      </p>
+
+      <div class='analyse-stat-grid'>
+        <div class='analyse-stat-card'>
+          <span class='analyse-stat-number'>36/52</span>
+          <p>
+            Répondants situant la pression ressentie à un
+            niveau de 1 à 2 sur 5.
+          </p>
+        </div>
+        <div class='analyse-stat-card'>
+          <span class='analyse-stat-number'>13/52</span>
+          <p>
+            Répondants situant cette pression au niveau 3 sur 5.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        Trois répondants indiquent un niveau de pression
+        de 4 ou 5 sur 5. La répartition montre que les niveaux
+        de pression les plus élevés restent minoritaires
+        dans cet échantillon. Elle ne permet cependant pas,
+        à elle seule, d'établir un lien de causalité entre
+        l'utilisation de Strava et la pression ressentie.
+      </p>
+
+      <div class='analyse-insight'>
+        <span class='analyse-insight-label'>À retenir</span>
+        <p>
+          La visibilité des performances peut contribuer
+          à des normes de présentation de soi. Mais les
+          utilisateurs conservent des marges de choix dans
+          ce qu'ils publient et dans la manière dont ils
+          interprètent le regard des autres.
+        </p>
+      </div>
+    </section>
+<div class='hypothesis-box'>
+  <div class='hypothesis-label'>Lien avec les hypothèses 2 et 4</div>
+  <h4>Visibilité sociale et pression de la performance</h4>
+
+  <p>
+    L'axe 3 permet d'examiner conjointement nos deuxième et quatrième
+    hypothèses. D'une part, le partage des activités et les kudos
+    donnent une dimension sociale à la pratique sportive en permettant
+    les échanges et la reconnaissance entre utilisateurs. D'autre part,
+    cette visibilité peut exposer les sportifs au regard des autres
+    et les conduire à sélectionner les performances qu'ils publient.
+    L'entretien avec Lily, qui explique avoir parfois renoncé à partager
+    une sortie jugée insuffisamment bonne, illustre cette possible
+    transformation de la motivation en pression.
+  </p>
+
+  <p>
+    Ces résultats font écho à Goffman (1959), qui analyse la présentation
+    de soi face à autrui, et à Hallgren et al. (2026), qui étudient les
+    interactions entre coureurs sur Strava. Les travaux de Russell et al.
+    (2023, 2026) éclairent également les implications psychosociales
+    de l'application. Toutefois, le questionnaire nuance ces observations :
+    36 répondants sur 52 déclarent une pression faible (1 ou 2 sur 5),
+    contre seulement 3 une pression élevée (4 ou 5 sur 5).
+  </p>
+
+  <p class='hypothesis-verdict'>
+    Bilan : les deux hypothèses sont partiellement confirmées.
+    Strava favorise le partage et les interactions sociales, mais la
+    visibilité peut aussi générer de la pression. Ces effets ne sont
+    toutefois ni systématiques ni identiques pour tous les utilisateurs.
+  </p>
+</div>
+  </article>
+
+  <!-- AXE 4 -->
+  <article class='analyse-axis axis-purple' id='analyse-approprier'>
+    <header class='analyse-axis-header'>
+      <div class='analyse-axis-number'>04</div>
+      <div>
+        <span class='analyse-axis-label'>Quatrième axe</span>
+        <h3 class='analyse-axis-title'>
+          S'approprier Strava : des trajectoires différentes
+          et les limites de la plateforme
+        </h3>
+        <p class='analyse-axis-description'>
+          Socialisation sportive, diversité des usages,
+          autonomie et gestion des données.
+        </p>
+      </div>
+    </header>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        4.1. Des usages liés aux trajectoires sportives
+      </h4>
+      <p>
+        Les entretiens ne font pas apparaître un usage unique
+        de Strava. Anaïs, Lily et Stéphane accordent des places
+        différentes à l'enregistrement des activités, à la
+        performance et à la visibilité sociale. Ces différences
+        invitent à replacer les pratiques numériques dans
+        les trajectoires sportives et les habitudes acquises
+        au fil du temps.
+      </p>
+      <p>
+        La socialisation sportive peut contribuer à expliquer
+        les significations attribuées à l'application :
+        suivre une progression, conserver des souvenirs,
+        se comparer ou partager ses activités. Strava ne
+        produit donc pas mécaniquement les mêmes comportements
+        chez tous ses utilisateurs.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        4.2. Des réseaux réduits, mais des attentes sociales
+      </h4>
+      <p>
+        Les effets de la visibilité ne dépendent pas uniquement
+        du nombre de personnes présentes dans le réseau.
+        Même un cercle restreint d'amis ou de proches peut
+        constituer un public dont le regard compte. La portée
+        sociale d'une publication dépend ainsi aussi de
+        la nature des relations et de la place que les
+        utilisateurs leur accordent.
+      </p>
+    </section>
+
+    <section class='analyse-subsection'>
+      <h4 class='analyse-subtitle'>
+        4.3. Négocier l'influence de la plateforme et la
+        confidentialité des données
+      </h4>
+      <p>
+        Les utilisateurs ne se contentent pas d'accepter
+        toutes les possibilités proposées par l'application.
+        Ils peuvent sélectionner leurs usages, limiter
+        la visibilité de leurs activités ou modifier les
+        informations accessibles aux autres.
+      </p>
+      <p>
+        Stéphane, par exemple, masque le début et la fin
+        de ses parcours. Cette pratique montre que l'utilisation
+        de la plateforme s'accompagne aussi d'arbitrages
+        concernant la confidentialité. Les données sportives
+        sont produites par les utilisateurs, mais leur
+        collecte et leur exploitation s'inscrivent dans
+        un environnement numérique plus large, qui peut
+        être interrogé à partir des travaux de Shoshana Zuboff.
+      </p>
+
+      <div class='analyse-insight'>
+        <span class='analyse-insight-label'>Limite de l'enquête</span>
+        <p>
+          Les entretiens et le questionnaire permettent
+          d'étudier des expériences et des représentations,
+          mais ils ne suffisent pas à établir des effets
+          généraux de la plateforme sur l'ensemble des sportifs.
+          Les résultats doivent être interprétés à partir
+          du terrain étudié.
+        </p>
+      </div>
+    </section>
+  <div class='hypothesis-box'>
+  <div class='hypothesis-label'>Bilan transversal</div>
+  <h4>Des effets qui varient selon les utilisateurs</h4>
+
+  <p>
+    L'analyse des entretiens montre que les fonctionnalités de Strava
+    ne produisent pas les mêmes effets chez tous les sportifs. Certains
+    utilisent les données pour progresser, les défis pour se motiver
+    ou le partage pour entretenir leurs relations. D'autres accordent
+    moins d'importance à ces mécanismes ou cherchent à limiter leur
+    exposition au regard des autres.
+  </p>
+
+  <p>
+    Les hypothèses de départ doivent donc être nuancées : les effets
+    de Strava dépendent des habitudes sportives, des motivations et
+    des usages de chacun. L'application ne détermine pas mécaniquement
+    les comportements, mais propose des fonctionnalités que les
+    utilisateurs s'approprient différemment.
+  </p>
+</div>
+  </article>
+
+ </section>
+
+
+
+
+<!-- ================================================= -->
+<!-- CONCLUSION -->
+<!-- ================================================= -->
+
+<section class='section' id='conclusion'>
+    <div class='conclusion'>
+
+        <div class='section-number'>09 — CONCLUSION</div>
+
+
+        <p>
+            Cette enquête invite à dépasser l’idée selon laquelle Strava aurait un effet
+            univoque, favorable ou défavorable, sur la pratique sportive. Les cinq entretiens
+            et les 52 réponses au questionnaire montrent d’abord l’importance de
+            l’enregistrement : les sportifs utilisent l’application pour conserver une trace,
+            suivre leurs distances et interpréter leur progression. Mais cette quantification
+            n’est pas toujours neutre. Les chiffres deviennent des objectifs, les records
+            personnels des références à dépasser, et les seuils affichés peuvent infléchir
+            le parcours ou la durée d’une séance.
+        </p>
+
+        <div class='conclusion-grid'>
+
+            <div class='conclusion-card'>
+                <h3>Ce que nous pensions</h3>
+                <p>
+                    La gamification et les fonctionnalités sociales de Strava pouvaient
+                    encourager la pratique sportive, mais aussi renforcer la compétition,
+                    la comparaison sociale et la pression liée aux performances.
+                </p>
+            </div>
+
+            <div class='conclusion-card'>
+                <h3>Ce que nous avons observé</h3>
+                <p>
+                    Les usages sont variés. Les sportifs suivent leurs statistiques,
+                    cherchent à mesurer leur progression et peuvent être motivés par les
+                    activités de leurs proches. Les challenges, segments et records peuvent
+                    aussi transformer les séances en objectifs à atteindre. Pourtant,
+                    la pression ressentie reste généralement faible dans notre questionnaire,
+                    même si certains témoignages révèlent des effets négatifs.
+                </p>
+            </div>
+
+            <div class='conclusion-card'>
+                <h3>Ce que nous retenons</h3>
+                <p>
+                    Strava ne produit pas les mêmes effets pour tous. L’application peut
+                    soutenir la régularité et l’émulation, tout en favorisant parfois la
+                    comparaison et la pression. Ces effets dépendent des usages individuels,
+                    des trajectoires sportives et des relations sociales.
+                </p>
+            </div>
+
+        </div>
+
+        <p>
+            La gamification accentue cette dynamique lorsque les badges, challenges,
+            segments et titres transforment les efforts en défis récompensés. Elle ne
+            fonctionne cependant pas isolément. Les kudos, abonnements et activités
+            partagées peuvent créer un encouragement réciproque, entre amis ou au sein
+            des familles. La dimension communautaire explique que Strava puisse contribuer
+            à la régularité sportive sans nécessairement entraîner une compétition agressive.
+            Elle rend également les performances visibles et comparables : l’émulation et
+            la pression sont deux interprétations possibles d’un même environnement.
+        </p>
+
+        <p>
+            Les témoignages de Lily et de Stéphane montrent que les incitations numériques
+            peuvent, dans certaines circonstances, modifier concrètement les comportements :
+            choisir un segment, répéter un parcours ou sélectionner ce qui paraît publiable.
+            Ceux d’Anaïs et de Martin soulignent qu’une part essentielle des usages demeure
+            instrumentale ou relationnelle. Le questionnaire étaye ce constat nuancé :
+            si une majorité déclare se comparer au moins parfois, la pression ressentie se
+            situe le plus souvent dans les catégories basses. Il serait donc infondé d’en
+            déduire aussi bien une absence générale de conséquences qu’une contrainte
+            généralisée.
+        </p>
+
+        <div class='conclusion-highlight'>
+            <h3>Notre réponse à la problématique</h3>
+            <p>
+                Strava contribue à transformer les conditions dans lesquelles l’activité
+                sportive est mesurée, racontée et évaluée. L’intensité de cette transformation
+                dépend toutefois des appropriations individuelles, des trajectoires sportives
+                et des relations sociales. Plus généralement, notre enquête éclaire le passage
+                d’activités de loisir vers des expériences de plus en plus traçables,
+                consultables et comparables. L’enjeu n’est pas seulement de savoir si le
+                numérique nous pousse à « faire plus », mais de comprendre comment il
+                participe à redéfinir ce que signifie « avoir bien fait » une activité.
+            </p>
+        </div>
+
+    </div>
+
+<div style='margin-top: 32px; text-align: center;'>
+    <a class='orange' href='rendu_écrit.docx' target='_blank'>
+        Consulter le rendu écrit complet →
+    </a>
+</div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- BIBLIOGRAPHIE & WEBOGRAPHIE -->
+<!-- ================================================= -->
+
+
+
+<section id='bibliographie'>
+
+  <h2>Bibliographie</h2>
+
+  <h3>Articles scientifiques sur la gamification</h3>
+
+  <p class='reference'>
+    Deterding, S., Dixon, D., Khaled, R., &amp; Nacke, L. (2011).
+    From game design elements to gamefulness: Defining “gamification”.
+    In <em>Proceedings of the 15th International Academic MindTrek
+    Conference: Envisioning Future Media Environments</em> (pp. 9–15).
+    ACM.
+    <a href='https://doi.org/10.1145/2181037.2181040' target='_blank' rel='noopener'>
+      https://doi.org/10.1145/2181037.2181040
+    </a>
+  </p>
+
+  <p class='reference'>
+    Hamari, J., Koivisto, J., &amp; Sarsa, H. (2014).
+    Does gamification work? A literature review of empirical studies
+    on gamification. In <em>Proceedings of the 47th Hawaii International
+    Conference on System Sciences</em> (pp. 3025–3034). IEEE.
+    <a href='https://doi.org/10.1109/HICSS.2014.377' target='_blank' rel='noopener'>
+      https://doi.org/10.1109/HICSS.2014.377
+    </a>
+  </p>
+
+  <h3>Articles scientifiques sur Strava et le suivi sportif</h3>
+
+  <p class='reference'>
+    Hallgren, M. E., Rønne, N., &amp; Wagner, U. (2026).
+    From kilometers to kudos: A study of runners’ online interaction
+    on Strava. <em>Scandinavian Sport Studies Forum, 17</em>, 97–123.
+    <a href='https://doi.org/10.24834/sssf.17.5' target='_blank' rel='noopener'>
+      https://doi.org/10.24834/sssf.17.5
+    </a>
+  </p>
+
+  <p class='reference'>
+    Russell, H. C., Potts, C., &amp; Nelson, E. (2023).
+    “If it’s not on Strava it didn’t happen”: Perceived psychosocial
+    implications of Strava use in collegiate club runners.
+    <em>Recreational Sports Journal, 47</em>(1), 15–25.
+    <a href='https://doi.org/10.1177/15588661221148170' target='_blank' rel='noopener'>
+      https://doi.org/10.1177/15588661221148170
+    </a>
+  </p>
+
+  <p class='reference'>
+    Russell, H. C., Potts, C., King, M., Henrich, L., &amp; Tracey, J. (2026).
+    Strava use in competitive female runners: A qualitative exploration
+    of perceived utility and psychosocial implications.
+    <em>Psychology of Sport and Exercise, 85</em>, Article 103136.
+    <a href='https://doi.org/10.1016/j.psychsport.2026.103136' target='_blank' rel='noopener'>
+      https://doi.org/10.1016/j.psychsport.2026.103136
+    </a>
+  </p>
+
+  <p class='reference'>
+    Spotswood, F., Shankar, A., &amp; Piwek, L. (2020).
+    Changing emotional engagement with running through communal
+    self-tracking: The implications of “teleoaffective shaping”
+    for public health. <em>Sociology of Health &amp; Illness, 42</em>(4),
+    772–788.
+    <a href='https://doi.org/10.1111/1467-9566.13057' target='_blank' rel='noopener'>
+      https://doi.org/10.1111/1467-9566.13057
+    </a>
+  </p>
+
+  <h3>Ouvrages et références théoriques</h3>
+
+  <p class='reference'>
+    Goffman, E. (1959).
+    <em>The presentation of self in everyday life.</em>
+    Doubleday.
+  </p>
+
+  <p class='reference'>
+    Zuboff, S. (2019, janvier).
+    Un capitalisme de surveillance.
+    <em>Le Monde diplomatique.</em>
+    <a href='https://www.monde-diplomatique.fr/2019/01/ZUBOFF/59443'
+       target='_blank' rel='noopener'>
+      https://www.monde-diplomatique.fr/2019/01/ZUBOFF/59443
+    </a>
+  </p>
+  <div class='reference'>
+  <p>
+    <strong>Bourdieu, P.</strong> (1979).
+    <em>La distinction : Critique sociale du jugement.</em>
+    Les Éditions de Minuit.
+  </p>
+</div>
+
+<div class='reference'>
+  <p>
+    <strong>Rosa, H.</strong> (2010).
+    <em>Accélération : Une critique sociale du temps.</em>
+    La Découverte.
+  </p>
+</div>
+
+  <h3>Articles de presse et ressources en ligne</h3>
+
+  <p class='reference'>
+    Fagot, V. (2022, 13 juillet).
+    Dans le sport, la multiplication des applications d’entraînement.
+    <em>Le Monde.</em>
+    <a href='https://www.lemonde.fr/economie/article/2022/07/13/dans-le-sport-la-multiplication-des-applications-d-entrainement_6134637_3234.html'
+       target='_blank' rel='noopener'>
+      Lire l’article
+    </a>
+  </p>
+
+  <p class='reference'>
+    Le Monde. (s. d.).
+    <em>StravaLeaks.</em>
+    <a href='https://www.lemonde.fr/strava-leaks/'
+       target='_blank' rel='noopener'>
+      https://www.lemonde.fr/strava-leaks/
+    </a>
+  </p>
+
+  <p class='reference'>
+    YouTube. (s. d.).
+    <em>How to use the Strava app | Everything you need to know…
+    The ultimate Strava guide!</em> [Vidéo].
+    <a href='https://www.youtube.com/watch?v=tT2gI7Ct_Kc'
+       target='_blank' rel='noopener'>
+      Regarder la vidéo
+    </a>
+  </p>
+
+<h3>Matériaux d’enquête</h3>
+
+  <ul class='materiaux'>
+    <li>Cinq retranscriptions d’entretiens qualitatifs :
+      Anaïs, Julie, Lily, Martin et Stéphane.</li>
+    <li>Questionnaire Google Forms : 52 réponses recueillies
+      du 29 septembre au 5 octobre 2026.</li>
+    <li><em>Exploration numérique — Fiche de sujet et stratégie d’enquête.</em></li>
+    <li><em>Guide d’entretien Strava.</em></li>
+  </ul>
+
+</section>
+
+</main>
+<footer>
+
+<div class='logo'>STRAVA</div>
+
+<div>
+Une enquête exploratoire · Sciences Po Paris · 2026
+</div>
+
+<div>
+Strava et la gamification du sport
+</div>
+
+</footer>
+
+</body>
+</html>"
+
+set desktopFolder to path to desktop folder
+set projectFolder to (desktopFolder as text) & "Culture numérique:"
+set htmlFile to projectFolder & "Strava_Enquete.html"
+
+set martinFile to projectFolder & "Martin_Entretien.docx"
+set lilyFile to projectFolder & "Lily_Entretien.docx"
+set stephaneFile to projectFolder & "Stéphane_Entretien.docx"
+set anaisFile to projectFolder & "Anais_Entretien.docx"
+set julieFile to projectFolder & "Julie_Entretien.docx"
+set guideFile to projectFolder & "Guide_entretien_Strava.xlsx"
+set article1File to projectFolder & "Article_1.docx"
+set article2File to projectFolder & "Article_2.docx"
+set article3File to projectFolder & "Article_3.docx"
+set article4File to projectFolder & "Article_4.docx"
+set renduFile to projectFolder & "rendu_écrit.docx"
+
+
+
+set martinURL to "file://" & POSIX path of martinFile
+set lilyURL to "file://" & POSIX path of lilyFile
+set guideURL to "file://" & POSIX path of guideFile
+set renduURL to "file://" & POSIX path of renduFile
+
+try
+	
+	set fileReference to open for access file htmlFile with write permission
+	
+	set eof of fileReference to 0
+	
+	write htmlCode to fileReference as «class utf8»
+	
+	close access fileReference
+	
+	display dialog "Le site STRAVA a été créé sur ton Bureau." buttons {"Ouvrir le site", "OK"} default button "Ouvrir le site"
+	
+	if button returned of result is "Ouvrir le site" then
+		do shell script "open " & quoted form of POSIX path of htmlFile
+	end if
+	
+on error errorMessage
+	
+	try
+		close access file htmlFile
+	end try
+	
+	display dialog "Une erreur est survenue : " & errorMessage buttons {"OK"}
+	
+end try
